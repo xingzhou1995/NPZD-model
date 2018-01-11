@@ -7,7 +7,7 @@ program main
 !
 
 implicit none
-integer      :: i
+integer      :: i,ITEM
 real(kind=8) :: N,P,Z,D
 real(kind=8) :: TSTART,TEND,dt
 ! inner data
@@ -28,6 +28,14 @@ real(kind=8),allocatable :: Z_array(:)
 real(kind=8),allocatable :: D_array(:)
 
 !open and reading data
+
+call subroutine NPZD_read(N,P,Z,D,TSTART,TEND,dt,ITEM)
+
+allocate( N_array(ITEM))
+allocate( P_array(ITEM))
+allocate( Z_array(ITEM))
+allocate( D_array(ITEM))
+
 
 
 !RK4 method
