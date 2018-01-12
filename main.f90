@@ -107,6 +107,26 @@ END DO
 
 !output
 
+open(32,file="output_NPZD.dat")
+
+do i=1,COUNTER
+write(32,*) "N=",N(i)
+end do
+
+do i=1,COUNTER
+write(32,*) "P=",P(i)
+end do
+
+do i=1,COUNTER
+write(32,*) "Z=",Z(i)
+end do
+
+do i=1,COUNTER
+write(32,*) "D=",D(i)
+end do
+
+
+
 
 
 end
