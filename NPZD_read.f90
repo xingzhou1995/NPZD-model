@@ -25,7 +25,7 @@ dt=TIME_STEP
 
 if (TEND .gt. TSTART) then
 write(*,*) "error  NPZD_time"
-exit
+!exit
 end if
 
 ITEM1=(TEND-TSTART)/dt

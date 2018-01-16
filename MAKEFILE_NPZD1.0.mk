@@ -23,27 +23,61 @@ SUBFILES   = Detritus.f90 \
 	     NPZD_read.f90 \
 
 # Varibles
-MAINPROGRAM = $(echo "${MAINFILES}" | awk -F '.' '{ print $1 }')
-SUBPROGRAM  = $(echo "${SUBFILES}" | awk -F '.' '{ print $1 }')
-MODPROGRAM  = $(echo "${MODFILES}" | awk -F '.' '{ print $1 }')
+#MAINPROGRAM = $(echo "${MAINFILES}" | awk -F '.' '{ print $1 }')
+#SUBPROGRAM  = $(echo "${SUBFILES}" | awk -F '.' '{ print $1 }')
+#MODPROGRAM  = $(echo "${MODFILES}" | awk -F '.' '{ print $1 }')
 #PREPROGRAM  = $(echo "$(PREFILES)" | awk -F '.' '{ print $1 }')
+MAINPROGRAM  = main
 PREPROGRAM   = generate_NPZD_namelist
-OBJS        = $(MAINPROGRAM).o $(SUBPROGRAM).o $(MODPROGRAM).o  
+MODPROGRAM   = bio_parameter
+OBJS        = $(MAINPROGRAM).o $(MODPROGRAM).o
 EXENAME     = NPZD
 
 
 # Default target
-all: $(EXENAME).x
+#all: $(EXENAME).x
+#all: $(EXENAME).x
+#	make clean
+#	make NML
+#	make COMPILE
+#	make
+
 all:
 	make clean
 	make NML
-	make COMPILE
+	make MOD
+	make MAIN
+	make LINK
 
 #LINK:	$(LINKER) $(OBJS) $(DFLAGS) $(EXENAME).x
 
+#       MAKEFILE 1.0 
 #COMPILER:	$(EXENAME).x
-COMPILE:		
-		$(COMPILER) $(MAINFLES) $(MODFILES) $(SUBFILES) $(DFLAGS) $(EXENAME).x
+#COMPILE:		
+#		$(COMPILER) $(MAINFLES) $(MODFILES) $(SUBFILES) $(DFLAGS) $(EXENAME).x
+
+#	MAKEFILE 1.0 DEBUG 1
+
+#$(EXENAME).x: $(MAINPROGRAM).o $(MODPROGRAM).mod
+LINK:
+		$(COMPILER) $(OBJS) -lm -o $(EXENAME).x
+
+#$(MAINPROGRAM).o: $(MAINFILES) $(SUBFILES)
+MAIN:
+		$(COMPILER) $(MAINFILES) $(SUBFILES) $(DFLAGS) $(MAINPROGRAM).o
+
+#$(MODPROGRAM).mod: $(MODFILES)
+MOD:
+		$(COMPILER) $(MODFILES) -c $(DFLAGS) $(MODPROGRAM).o
+
+
+#	MAKEFILE 2.0
+#Detritus.o: Detritus.f90
+#	$(COMPILER) Detritus.f90 -c $(DFLAGS) Detritus.o
+
+
+
+
 
 #NML:		$(EXENAME).nml
 NML:		
@@ -52,6 +86,8 @@ NML:
 		./$(PREPROGRAM).x	
 
 clean:
+	rm -f *.mod	
+	rm -f *.o	
 	rm -f *.x
 	rm -f *.nml
  

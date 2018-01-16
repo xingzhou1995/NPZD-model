@@ -5,7 +5,7 @@ real(kind=8) :: alpha = 0.25                         ! Z growth efficiency
 real(kind=8) :: beta  = 0.33                         ! Z excretion fraction
 real(kind=8) :: gama  = 0.5                          ! Regeneration of Z predation excretion
 real(kind=8) :: r     = 0.15  !/day                  ! P respiration rate
-real(kind=8) :: d     = 1.0   !m^3/gC/day            ! Higher Predation on Z
+real(kind=8) :: dd     = 1.0   !m^3/gC/day            ! Higher Predation on Z
 real(kind=8) :: k     = 0.05  !/day                  ! Cross-thermocline exchange rate
 real(kind=8) :: s     = 0.04  !/day                  ! P sink loss rate
 real(kind=8) :: N0    = 0.6   !gC/m^3                ! N concentration below mixed layer
@@ -18,6 +18,6 @@ real(kind=8) :: a     = 0.2   !/m/day                ! a/b gives maximum P growt
 real(kind=8) :: b     = 0.2   !/m                    ! Light attenuaton by water
 real(kind=8) :: c     = 0.4   !m^2/gC/day            ! P self-shading coefficient
 real(kind=8) :: lamda = 0.6   !/day                  ! Maximum Z grazing rate
-real(kind=8) :: u     = 0.035 !gC/m^3                ! Z grazing half-saturation coefficient
+real(kind=8) :: mu     = 0.035 !gC/m^3                ! Z grazing half-saturation coefficient
 
 end module bio_parameter
