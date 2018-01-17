@@ -1,7 +1,8 @@
+
 program generate_NPZD_namelist
 implicit none
-real(kind=8) :: N = -9999, P = -9999,Z = -9999,D = -9999
-real(kind=8) :: START_TIME = 1,END_TIME = 365,TIME_STEP = 1
+real(kind=8) :: N = 100, P = 100,Z = 100,D = 100
+real(kind=8) :: START_TIME = 1,END_TIME = 24,TIME_STEP = 1
 
 namelist /NPZD_data/ N,P,Z,D
 

@@ -23,7 +23,7 @@ dt=TIME_STEP
 !write(*,*) TEND
 !write(*,*) dt
 
-if (TEND .gt. TSTART) then
+if (TEND .lt. TSTART) then
 write(*,*) "error  NPZD_time"
 !exit
 end if

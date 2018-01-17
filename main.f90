@@ -47,6 +47,15 @@ P_array(COUNTER)=P
 Z_array(COUNTER)=Z
 D_array(COUNTER)=D
 
+write(*,*) "NPZD model start"
+
+Write(*,*),"###############################"
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"P=",P
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
+write(*,*),"###############################"
+
 
 do i=TSTART,dt,TEND
 
@@ -62,6 +71,14 @@ Call Phytoplankton(N1,P1,Z1,K1P)
 Call Zooplankton(P1,Z1,K1Z)
 Call Detritus(P1,Z1,D1,K1D)
 
+write(*,*) "#######################"
+write(*,*) "K1N=",K1N
+write(*,*) "K1P=",K1P
+write(*,*) "K1Z=",K1Z
+write(*,*) "K1D=",K1D
+write(*,*) "######################"
+
+
 ! k2
 N2=N+(dt/2)*K1N
 P2=P+(dt/2)*K1P
@@ -71,6 +88,15 @@ Call Nutrient(N2,P2,Z2,D2,K2N)
 Call Phytoplankton(N2,P2,Z2,K2P)
 Call Zooplankton(P2,Z2,K2Z)
 Call Detritus(P2,Z2,D2,K2D)
+
+write(*,*) "#######################"
+write(*,*) "K2N=",K2N
+write(*,*) "K2P=",K2P
+write(*,*) "K2Z=",K2Z
+write(*,*) "K2D=",K2D
+write(*,*) "######################"
+
+
 
 ! k3
 N3=N+(dt/2)*K2N
@@ -82,6 +108,14 @@ Call Phytoplankton(N3,P3,Z3,K3P)
 Call Zooplankton(P3,Z3,K3Z)
 Call Detritus(P3,Z3,D2,K3D)
 
+write(*,*) "#######################"
+write(*,*) "K3N=",K3N
+write(*,*) "K3P=",K3P
+write(*,*) "K3Z=",K3Z
+write(*,*) "K3D=",K3D
+write(*,*) "######################"
+
+
 ! k4
 N4=N+(dt)*K3N
 P4=P+(dt)*K3P
@@ -91,6 +125,16 @@ Call Nutrient(N4,P4,Z4,D4,K4N)
 Call Phytoplankton(N4,P4,Z4,K4P)
 Call Zooplankton(P4,Z4,K4Z)
 Call Detritus(P4,Z4,D4,K4D)
+
+write(*,*) "#######################"
+write(*,*) "K4N=",K4N
+write(*,*) "K4P=",K4P
+write(*,*) "K4Z=",K4Z
+write(*,*) "K4D=",K4D
+write(*,*) "######################"
+
+
+
 
 !iteration
 N=N+(dt/6)*(K1N+2*K2N+2*K3N+K4N)
@@ -102,6 +146,17 @@ N_array(COUNTER)=N
 P_array(COUNTER)=P
 Z_array(COUNTER)=Z
 D_array(COUNTER)=D
+
+Write(*,*),"###############################"
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"P=",P
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
+write(*,*),"###############################"
+
+
+
+
 
 END DO
 

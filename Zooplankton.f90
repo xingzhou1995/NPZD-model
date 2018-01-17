@@ -1,6 +1,7 @@
 subroutine Zooplankton(P,Z,KZ)
 
 use bio_parameter
+use bio_process
 implicit none
 real(kind=8) :: P,Z,KZ
 real(kind=8) :: G

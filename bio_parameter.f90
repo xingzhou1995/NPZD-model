@@ -3,7 +3,7 @@ implicit none
 ! Using for govern equation
 real(kind=8) :: alpha = 0.25                         ! Z growth efficiency
 real(kind=8) :: beta  = 0.33                         ! Z excretion fraction
-real(kind=8) :: gama  = 0.5                          ! Regeneration of Z predation excretion
+!real(kind=8) :: gama  = 0.5                          ! Regeneration of Z predation excretion (assuming no higher predator)
 real(kind=8) :: r     = 0.15  !/day                  ! P respiration rate
 real(kind=8) :: dd     = 1.0   !m^3/gC/day            ! Higher Predation on Z
 real(kind=8) :: k     = 0.05  !/day                  ! Cross-thermocline exchange rate
