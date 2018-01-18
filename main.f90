@@ -9,7 +9,8 @@ program main
 implicit none
 integer      :: i,ITEM
 real(kind=8) :: N,P,Z,D
-real(kind=8) :: TSTART,TEND,dt
+!real(kind=8) :: TSTART,TEND,dt
+integer      :: TSTART,TEND,dt
 ! inner data
 real(kind=8) :: N1,P1,Z1,D1
 real(kind=8) :: N2,P2,Z2,D2
@@ -30,13 +31,32 @@ real(kind=8),allocatable :: D_array(:)
 !open and reading data
 
 call NPZD_read(N,P,Z,D,TSTART,TEND,dt,ITEM)
+write(*,*),"ITEM=",item
 
-allocate( N_array(ITEM))
+!deallocate(N_array)
+!deallocate(P_array)
+!deallocate(Z_array)
+!deallocate(D_array)
+
+if(.not.allocated( N_array)) then 
+ allocate( N_array(ITEM))
+ write(*,*),"ALLOCATED N Array Successful!"
+end if
+if(.not.allocated( P_array)) then 
 allocate( P_array(ITEM))
+ write(*,*),"ALLOCATED P Array Successful!"
+end if 
+if(.not.allocated( Z_array)) then 
 allocate( Z_array(ITEM))
+write(*,*),"ALLOCATED Z Array Successful!"
+end if
+if(.not.allocated( D_array)) then
 allocate( D_array(ITEM))
+ write(*,*),"ALLOCATED D Array Successful!"
+end if
 
 
+!write(*,*),"ALLOCATED NPZD Array Successful!"
 
 !RK4 method
 
@@ -57,8 +77,9 @@ Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
 write(*,*),"###############################"
 
 
-do i=TSTART,dt,TEND
-
+ do i=TSTART,TEND,dt
+write(*,*),"i=",i
+!write(*,*),"TEND=",TEND
 COUNTER=COUNTER+1
 
 ! k1
@@ -154,11 +175,9 @@ Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
 write(*,*),"###############################"
 
+end do
 
 
-
-
-END DO
 
 !output
 
@@ -180,7 +199,10 @@ do i=1,COUNTER
 write(32,*) "D=",D_array(i)
 end do
 
-
+deallocate(N_array)
+deallocate(P_array)
+deallocate(Z_array)
+deallocate(D_array)
 
 
 
