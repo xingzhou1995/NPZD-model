@@ -9,8 +9,8 @@ program main
 implicit none
 integer      :: i,ITEM
 real(kind=8) :: N,P,Z,D
-!real(kind=8) :: TSTART,TEND,dt
-integer      :: TSTART,TEND,dt
+real(kind=8) :: TSTART,TEND,dt
+!integer      :: TSTART,TEND,dt
 ! inner data
 real(kind=8) :: N1,P1,Z1,D1
 real(kind=8) :: N2,P2,Z2,D2
@@ -23,10 +23,10 @@ real(kind=8) :: K4N,K4P,K4Z,K4D
 
 ! output data
 integer :: COUNTER
-real(kind=8),allocatable :: N_array(:)
-real(kind=8),allocatable :: P_array(:)
-real(kind=8),allocatable :: Z_array(:)
-real(kind=8),allocatable :: D_array(:)
+real(kind=8),allocatable :: array_N(:)
+real(kind=8),allocatable :: array_P(:)
+real(kind=8),allocatable :: array_Z(:)
+real(kind=8),allocatable :: array_D(:)
 
 !open and reading data
 
@@ -38,20 +38,20 @@ write(*,*),"ITEM=",item
 !deallocate(Z_array)
 !deallocate(D_array)
 
-if(.not.allocated( N_array)) then 
- allocate( N_array(ITEM))
+if(.not.allocated( array_N)) then 
+ allocate( array_N(ITEM))
  write(*,*),"ALLOCATED N Array Successful!"
 end if
-if(.not.allocated( P_array)) then 
-allocate( P_array(ITEM))
+if(.not.allocated( array_P)) then 
+allocate( array_P(ITEM))
  write(*,*),"ALLOCATED P Array Successful!"
 end if 
-if(.not.allocated( Z_array)) then 
-allocate( Z_array(ITEM))
+if(.not.allocated( array_Z)) then 
+allocate( array_Z(ITEM))
 write(*,*),"ALLOCATED Z Array Successful!"
 end if
-if(.not.allocated( D_array)) then
-allocate( D_array(ITEM))
+if(.not.allocated( array_D)) then
+allocate( array_D(ITEM))
  write(*,*),"ALLOCATED D Array Successful!"
 end if
 
@@ -62,10 +62,10 @@ end if
 
 
 COUNTER=1
-N_array(COUNTER)=N
-P_array(COUNTER)=P
-Z_array(COUNTER)=Z
-D_array(COUNTER)=D
+array_N(COUNTER)=N
+array_P(COUNTER)=P
+array_Z(COUNTER)=Z
+array_D(COUNTER)=D
 
 write(*,*) "NPZD model start"
 
@@ -77,7 +77,7 @@ Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
 write(*,*),"###############################"
 
 
- do i=TSTART,TEND,dt
+ do i=1,ITEM
 write(*,*),"i=",i
 !write(*,*),"TEND=",TEND
 COUNTER=COUNTER+1
@@ -163,10 +163,10 @@ P=P+(dt/6)*(K1P+2*K2P+2*K3P+K4P)
 Z=Z+(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
 D=D+(dt/6)*(K1D+2*K2D+2*K3D+K4D)
 
-N_array(COUNTER)=N
-P_array(COUNTER)=P
-Z_array(COUNTER)=Z
-D_array(COUNTER)=D
+array_N(COUNTER)=N
+array_P(COUNTER)=P
+array_Z(COUNTER)=Z
+array_D(COUNTER)=D
 
 Write(*,*),"###############################"
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
@@ -184,25 +184,25 @@ end do
 open(32,file="output_NPZD.dat")
 
 do i=1,COUNTER
-write(32,*) "N=",N_array(i)
+write(32,*) "N=",array_N(i)
 end do
 
 do i=1,COUNTER
-write(32,*) "P=",P_array(i)
+write(32,*) "P=",array_P(i)
 end do
 
 do i=1,COUNTER
-write(32,*) "Z=",Z_array(i)
+write(32,*) "Z=",array_Z(i)
 end do
 
 do i=1,COUNTER
-write(32,*) "D=",D_array(i)
+write(32,*) "D=",array_D(i)
 end do
 
-deallocate(N_array)
-deallocate(P_array)
-deallocate(Z_array)
-deallocate(D_array)
+deallocate(array_N)
+deallocate(array_P)
+deallocate(array_Z)
+deallocate(array_D)
 
 
 
