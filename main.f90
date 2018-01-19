@@ -74,6 +74,7 @@ Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"P=",P
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"SUM=",N+P+Z+D
 write(*,*),"###############################"
 
 
@@ -173,6 +174,7 @@ Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"P=",P
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
 Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
+Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"SUM=",N+P+Z+D
 write(*,*),"###############################"
 
 end do
