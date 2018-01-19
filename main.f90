@@ -39,19 +39,19 @@ write(*,*),"ITEM=",item
 !deallocate(D_array)
 
 if(.not.allocated( array_N)) then 
- allocate( array_N(ITEM))
+ allocate( array_N(ITEM+1))
  write(*,*),"ALLOCATED N Array Successful!"
 end if
 if(.not.allocated( array_P)) then 
-allocate( array_P(ITEM))
+allocate( array_P(ITEM+1))
  write(*,*),"ALLOCATED P Array Successful!"
 end if 
 if(.not.allocated( array_Z)) then 
-allocate( array_Z(ITEM))
+allocate( array_Z(ITEM+1))
 write(*,*),"ALLOCATED Z Array Successful!"
 end if
 if(.not.allocated( array_D)) then
-allocate( array_D(ITEM))
+allocate( array_D(ITEM+1))
  write(*,*),"ALLOCATED D Array Successful!"
 end if
 
