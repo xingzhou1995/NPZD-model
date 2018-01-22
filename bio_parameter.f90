@@ -19,5 +19,5 @@ real(kind=8) :: b     = 0.2   !/m                    ! Light attenuaton by water
 real(kind=8) :: c     = 0.4   !m^2/gC/day            ! P self-shading coefficient
 real(kind=8) :: lamda = 0.6   !/day                  ! Maximum Z grazing rate
 real(kind=8) :: mu     = 0.035 !gC/m^3                ! Z grazing half-saturation coefficient
-
+real(kind=8) :: L0    = 0                            !determines irradiance at photosynthesis maxium
 end module bio_parameter

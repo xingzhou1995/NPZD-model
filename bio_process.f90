@@ -14,17 +14,23 @@ module bio_process
    end subroutine
 
 
-   subroutine uptaking(N,P,U)
+   subroutine uptaking(N,P,U,L)
    ! this program is used to calculating uptaking 
 
    use bio_parameter
    implicit none
-   real(kind=8) :: N,P,U
+   real(kind=8) :: N,P,U,L
    real(kind=8) :: N_l,L_l
    !Nutrient Limitation
     N_l=(N/(e+N))
 
    !Light Limitation
+   
+   !Saturating response 1
+   !L_l=(L/(L0+L))   
+
+   !Saturating respose 2
+   !L_l=L-exp(-L/L0)
 
    !Considering self shading 
     L_l=(a*P)/(b+c*P)

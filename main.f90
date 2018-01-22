@@ -8,7 +8,7 @@ program main
 
 implicit none
 integer      :: i,ITEM
-real(kind=8) :: N,P,Z,D
+real(kind=8) :: N,P,Z,D,L
 real(kind=8) :: TSTART,TEND,dt
 !integer      :: TSTART,TEND,dt
 ! inner data
@@ -30,7 +30,7 @@ real(kind=8),allocatable :: array_D(:)
 
 !open and reading data
 
-call NPZD_read(N,P,Z,D,TSTART,TEND,dt,ITEM)
+call NPZD_read(N,P,Z,D,L,TSTART,TEND,dt,ITEM)
 write(*,*),"ITEM=",item
 
 !deallocate(N_array)

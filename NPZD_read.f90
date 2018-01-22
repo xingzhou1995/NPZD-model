@@ -2,13 +2,13 @@
 subroutine NPZD_read(N,P,Z,D,TSTART,TEND,dt,item)
 
 implicit none
-real(kind=8) :: N,P,Z,D
+real(kind=8) :: N,P,Z,D,L
 real(kind=8) :: TSTART,TEND,dt
 real(kind=8) :: START_TIME,END_TIME,TIME_STEP
 integer :: ITEM
 real :: ITEM1
 
-namelist / NPZD_data/ N,P,Z,D
+namelist / NPZD_data/ N,P,Z,D,L
 namelist / NPZD_time/ START_TIME,END_TIME,TIME_STEP
 
 open(33,file="NPZD.nml")
