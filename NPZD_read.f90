@@ -1,5 +1,5 @@
 !program NPZD_read
-subroutine NPZD_read(N,P,Z,D,TSTART,TEND,dt,item)
+subroutine NPZD_read(N,P,Z,D,L,TSTART,TEND,dt,ITEM)
 
 implicit none
 real(kind=8) :: N,P,Z,D,L
@@ -29,7 +29,9 @@ write(*,*) "error  NPZD_time"
 end if
 
 ITEM1=(TEND-TSTART)/dt
+!write(*,*),"ITEM1=",ITEM1
 ITEM=ceiling(ITEM1)
+!write(*,*),"ITEM=",ITEM
 
 end subroutine
 !end

@@ -31,7 +31,7 @@ real(kind=8),allocatable :: array_D(:)
 !open and reading data
 
 call NPZD_read(N,P,Z,D,L,TSTART,TEND,dt,ITEM)
-write(*,*),"ITEM=",item
+write(*,*),"ITEM=",ITEM
 
 !deallocate(N_array)
 !deallocate(P_array)
