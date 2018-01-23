@@ -15,6 +15,6 @@ call grazing(P,Z,G)
 !KP=U-r*P-G-(s+k)*P
 
 !Without Mixing and sinking
-KP=U-r*P-G
+KP=U*P-r*P-G
 
 end subroutine

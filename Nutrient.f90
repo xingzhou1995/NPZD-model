@@ -14,7 +14,7 @@ call uptaking(N,P,U,L)
 !KN=-U+beta*G+gama*dd*Z**2+phi*D+k*(N0-N)
 
 !Without Mixing
-KN=-U+beta*G+dd*Z**2+phi*D
+KN=-U*P+beta*G+dd*Z**2+phi*D
 
 end subroutine
 
