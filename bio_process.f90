@@ -27,10 +27,10 @@ module bio_process
    !Light Limitation
    
    !Saturating response 1
-    L_l=(L/(L0+L))   
+    L_l=(L/(L0+L))*P   
 
    !Saturating respose 2
-   !L_l=L-exp(-L/L0)
+   !L_l=L-exp(-L/L0)*P
 
    !Considering self shading 
    ! L_l=(a*P)/(b+c*P)
