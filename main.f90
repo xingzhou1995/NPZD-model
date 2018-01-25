@@ -32,7 +32,7 @@ real(kind=8),allocatable :: array_D(:)
 
 call NPZD_read(N,P,Z,D,L,TSTART,TEND,dt,ITEM)
 write(*,*),"ITEM=",ITEM
-
+write(*,*),"L=",L
 !deallocate(N_array)
 !deallocate(P_array)
 !deallocate(Z_array)
@@ -83,15 +83,36 @@ write(*,*),"i=",i
 !write(*,*),"TEND=",TEND
 COUNTER=COUNTER+1
 
+!CONTROL PARTION
+
+!if (N.le.0) then
+!N=0.0
+!end if
+
+!if (P.le.0) then
+!P=0.0
+!end if
+
+!if (Z.le.0) then
+!Z=0.0
+!end if
+
+!if (D.le.0) then
+!D=0.0
+!end if
+
+
+
 ! k1
 N1=N
 P1=P
 D1=D
 Z1=Z
-Call Nutrient(N1,P1,Z1,D1,K1N)
-Call Phytoplankton(N1,P1,Z1,K1P)
-Call Zooplankton(P1,Z1,K1Z)
-Call Detritus(P1,Z1,D1,K1D)
+!Call Datacontrol(N1,P1,Z1,D1)
+Call Nutrient(N1,P1,Z1,D1,L,K1N)
+Call Phytoplankton(N1,P1,Z1,L,K1P)
+Call Zooplankton(P1,Z1,L,K1Z)
+Call Detritus(P1,Z1,D1,L,K1D)
 
 write(*,*) "#######################"
 write(*,*) "K1N=",K1N
@@ -106,10 +127,11 @@ N2=N+(dt/2)*K1N
 P2=P+(dt/2)*K1P
 Z2=Z+(dt/2)*K1Z
 D2=D+(dt/2)*K1D
-Call Nutrient(N2,P2,Z2,D2,K2N)
-Call Phytoplankton(N2,P2,Z2,K2P)
-Call Zooplankton(P2,Z2,K2Z)
-Call Detritus(P2,Z2,D2,K2D)
+!Call Datacontrol(N2,P2,Z2,D2)
+Call Nutrient(N2,P2,Z2,D2,L,K2N)
+Call Phytoplankton(N2,P2,Z2,L,K2P)
+Call Zooplankton(P2,Z2,L,K2Z)
+Call Detritus(P2,Z2,D2,L,K2D)
 
 write(*,*) "#######################"
 write(*,*) "K2N=",K2N
@@ -125,10 +147,11 @@ N3=N+(dt/2)*K2N
 P3=P+(dt/2)*K2P
 Z3=Z+(dt/2)*K2Z
 D3=D+(dt/2)*K2D
-Call Nutrient(N3,P3,Z3,D3,K3N)
-Call Phytoplankton(N3,P3,Z3,K3P)
-Call Zooplankton(P3,Z3,K3Z)
-Call Detritus(P3,Z3,D2,K3D)
+!Call Datacontrol(N3,P3,Z3,D3)
+Call Nutrient(N3,P3,Z3,D3,L,K3N)
+Call Phytoplankton(N3,P3,Z3,L,K3P)
+Call Zooplankton(P3,Z3,L,K3Z)
+Call Detritus(P3,Z3,D2,L,K3D)
 
 write(*,*) "#######################"
 write(*,*) "K3N=",K3N
@@ -143,10 +166,11 @@ N4=N+(dt)*K3N
 P4=P+(dt)*K3P
 Z4=Z+(dt)*K3Z
 D4=D+(dt)*K3D
-Call Nutrient(N4,P4,Z4,D4,K4N)
-Call Phytoplankton(N4,P4,Z4,K4P)
-Call Zooplankton(P4,Z4,K4Z)
-Call Detritus(P4,Z4,D4,K4D)
+!Call Datacontrol(N4,P4,Z4,D4)
+Call Nutrient(N4,P4,Z4,D4,L,K4N)
+Call Phytoplankton(N4,P4,Z4,L,K4P)
+Call Zooplankton(P4,Z4,L,K4Z)
+Call Detritus(P4,Z4,D4,L,K4D)
 
 write(*,*) "#######################"
 write(*,*) "K4N=",K4N
@@ -209,3 +233,27 @@ deallocate(array_D)
 
 
 end
+
+
+
+subroutine Datacontrol(N,P,Z,D)
+
+implicit none
+real(kind=8) :: N,P,Z,D
+if (N.le.0) then
+N=0.0
+end if
+
+if (P.le.0) then
+P=0.0
+end if
+
+if (Z.le.0) then
+Z=0.0
+end if
+
+if (D.le.0) then
+D=0.0
+end if
+
+end subroutine

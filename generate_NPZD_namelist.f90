@@ -4,7 +4,7 @@ implicit none
 real(kind=8) :: N = 0, P = 0, Z = 0, D = 0, L = 0
 real(kind=8) :: START_TIME = 1,END_TIME = 24,TIME_STEP = 1
 
-character(20) :: L_function = 'STEELE 1962'
+character(20) :: L_function = 'Steele_1962'
 character(20) :: N_function = 'Michaelis-Menten'
 character(20) :: P_exc_function = 'Linear'
 character(20) :: Z_exc_function = 'Quadratic'

@@ -1,10 +1,12 @@
-Subroutine Nutrient(N,P,Z,D,KN)
+Subroutine Nutrient(N,P,Z,D,L,KN)
 
 use bio_parameter
 use bio_process
 implicit none
 real(kind=8) :: N,P,Z,D,L,KN
 real(kind=8) :: U,G,J,RR
+
+
 
 
 call grazing(P,Z,G)
@@ -16,6 +18,8 @@ call remineralization(D,RR)
 
 !Without Mixing
 KN=-U*P+beta*G*Z+J*Z+RR*D
+
+
 
 end subroutine
 

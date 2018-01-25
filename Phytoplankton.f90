@@ -1,4 +1,4 @@
-subroutine Phytoplankton(N,P,Z,KP)
+subroutine Phytoplankton(N,P,Z,L,KP)
 
 
 use bio_parameter
@@ -14,7 +14,12 @@ call P_excretion(P,I)
 !Consider mixng and sinking as a parameter
 !KP=U-I*P-G-(s+k)*P
 
+
 !Without Mixing and sinking
-KP=U*P-I*P-G
+KP=U*P-I*P-G*Z
+
+!write(*,*) "U=",U
+!write(*,*) "I=",I
+
 
 end subroutine

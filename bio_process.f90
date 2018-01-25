@@ -25,7 +25,7 @@ module bio_process
    !Nutrient Limitation
     select case(N_function)
     case ('Michaelis-Menten')
-    N_l=(Vm*N/(e+N))
+    N_l=((Vm*N)/(e+N))
     
     case default
     print*,"Invalid N_function,program terminated"
@@ -33,11 +33,12 @@ module bio_process
     end select
 
    !Light Limitation
+    L_function=trim(L_function)
     select case (L_function)
-    case ('Saturating_response_1')
+    case ('Saturating_response1')
     L_l=(L/(L0+L))   
 
-    case ('Saturating_respose_2' )
+    case ('Saturating_respose2' )
     L_l=L-exp(-L/L0)
 
     case ('Edwards_1997')
@@ -54,7 +55,8 @@ module bio_process
    
 !Uptaking
     U=N_l*L_l
-    
+   !write(*,*) "N_l=",N_l
+   !write(*,*) "L_l=",L_l 
    !write(*,*) "U=",U
 
    end subroutine
