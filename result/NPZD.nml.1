@@ -11,9 +11,9 @@
  TIME_STEP=  1.0000000000000000     ,
  /
 &NPZD_PROCESS
- L_FUNCTION="Steele_1962         ",
- N_FUNCTION="Michaelis-Menten    ",
- P_EXC_FUNCTION="Linear              ",
- Z_EXC_FUNCTION="Quadratic           ",
- R_FUNCTION="Linear              ",
+ L_FUNCTION="Steele_1962         ",    !f(I)=(I/I0)*e(-I/I0) 
+ N_FUNCTION="Michaelis-Menten    ",    !g(N)=(Vm*N)/(e+N)
+ P_EXC_FUNCTION="Linear              ",!i(P)= r
+ Z_EXC_FUNCTION="Quadratic           ",!j(Z)= d*Z
+ R_FUNCTION="Linear              ",    !R(D)= phi
  /
