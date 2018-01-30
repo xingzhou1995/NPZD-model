@@ -1,0 +1,25 @@
+&NPZD_DATA
+ N=  0.0000000000000000     ,
+ P=  0.0000000000000000     ,
+ Z=  0.0000000000000000     ,
+ D=  0.0000000000000000     ,
+ /
+&NPZD_TIME
+ START_TIME=  1.0000000000000000     ,
+ END_TIME=  24.000000000000000     ,
+ TIME_STEP=  1.0000000000000000     ,
+ /
+&NPZD_PROCESS
+ L_FUNCTION="Steele_1962         ",
+ N_FUNCTION="Michaelis-Menten    ",
+ PM_FUNCTION="Linear              ",
+ ZM_FUNCTION="Quadratic           ",
+ R_FUNCTION="Linear              ",
+ G_FUNCTION="origin              ",
+ PR_FUNCTION="Luo                 ",
+ ZR_FUNCTION="Luo                 ",
+ /
+&NPZD_FORCING
+ L=  10.0000000000000000     ,
+ T=  273.0000000000000000     ,
+ /
