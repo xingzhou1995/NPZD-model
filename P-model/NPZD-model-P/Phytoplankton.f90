@@ -20,7 +20,7 @@ call P_respiration(P,PR)
 !KP=U*P-PM*P-GP*Z
 
 !Adding respiration (luo option)
-KP=U*P-PR*P-PM*P-GP*P
+KP=U*P-PR*P-PM*P-GP*Z
 
 
 !write(*,*) "U=",U

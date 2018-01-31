@@ -30,8 +30,10 @@ module bio_process
    use bio_parameter
    implicit none
    real(kind=8) :: N,P,U
-   real(kind=8) :: N_l,L_l
-   
+   real(kind=8) :: N_l,L_l,T_l
+  
+   !Temperature Limitation    
+    T_l=1
    !Nutrient Limitation
     select case(N_function)
     case ('Michaelis-Menten')
@@ -64,7 +66,7 @@ module bio_process
     end select
    
 !Uptaking
-    U=N_l*L_l
+    U=N_l*L_l*T_l
    !write(*,*) "N_l=",N_l
    !write(*,*) "L_l=",L_l 
    !write(*,*) "U=",U

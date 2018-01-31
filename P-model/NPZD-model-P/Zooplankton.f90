@@ -15,6 +15,7 @@ call Z_respiration(Z,ZR)
 
 !luo
 KZ=GP*Z+GD*Z-ZR*Z-ZM*Z
+write(*,*),"total",GP+GD-ZR-ZM
 end subroutine
 
 
