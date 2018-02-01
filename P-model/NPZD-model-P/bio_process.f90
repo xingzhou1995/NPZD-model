@@ -73,7 +73,7 @@ module bio_process
     end select
    
 !Uptaking
-    U=N_l*L_l*T_l
+    U=upmax*N_l*L_l*T_l
    !write(*,*) "N_l=",N_l
    !write(*,*) "L_l=",L_l 
    !write(*,*) "U=",U

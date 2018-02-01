@@ -39,6 +39,7 @@ real(kind=8) :: alphaT = 0.004 !                     ! temperature correction co
 real(kind=8) :: alphaI = 0.5                         ! light parameter relate tothe slope of the light function
 real(kind=8) :: betaI  = 1.5                         ! photo inhibition
 real(kind=8) :: umax   = 1                           ! maximum growth rate
+real(kind=8) :: upmax  = 2.8  ! /day                 ! maxium growth rate for P
 ! case  judgment variable
 character(20) :: L_function
 character(20) :: N_function
