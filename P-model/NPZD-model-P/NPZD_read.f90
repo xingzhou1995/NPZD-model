@@ -12,7 +12,7 @@ real :: ITEM1
 namelist / NPZD_data/ N,P,Z,D
 namelist / NPZD_forcing/ L,T
 namelist / NPZD_time/ START_TIME,END_TIME,TIME_STEP
-namelist / NPZD_process/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function 
+namelist / NPZD_process/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function,T_function 
 
 open(33,file="NPZD.nml")
 read(33,nml=NPZD_data) 

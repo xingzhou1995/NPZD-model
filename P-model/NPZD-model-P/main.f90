@@ -110,7 +110,7 @@ N1=N
 P1=P
 D1=D
 Z1=Z
-!Call Datacontrol(N1,P1,Z1,D1)
+Call Datacontrol(N1,P1,Z1,D1)
 Call Nutrient(N1,P1,Z1,D1,K1N)
 Call Phytoplankton(N1,P1,Z1,D1,K1P)
 Call Zooplankton(P1,Z1,D1,K1Z)
@@ -129,7 +129,7 @@ N2=N+(dt/2)*K1N
 P2=P+(dt/2)*K1P
 Z2=Z+(dt/2)*K1Z
 D2=D+(dt/2)*K1D
-!Call Datacontrol(N2,P2,Z2,D2)
+Call Datacontrol(N2,P2,Z2,D2)
 Call Nutrient(N2,P2,Z2,D2,K2N)
 Call Phytoplankton(N2,P2,Z2,D2,K2P)
 Call Zooplankton(P2,Z2,D2,K2Z)
@@ -149,7 +149,7 @@ N3=N+(dt/2)*K2N
 P3=P+(dt/2)*K2P
 Z3=Z+(dt/2)*K2Z
 D3=D+(dt/2)*K2D
-!Call Datacontrol(N3,P3,Z3,D3)
+Call Datacontrol(N3,P3,Z3,D3)
 Call Nutrient(N3,P3,Z3,D3,K3N)
 Call Phytoplankton(N3,P3,Z3,D3,K3P)
 Call Zooplankton(P3,Z3,D3,K3Z)
@@ -168,7 +168,7 @@ N4=N+(dt)*K3N
 P4=P+(dt)*K3P
 Z4=Z+(dt)*K3Z
 D4=D+(dt)*K3D
-!Call Datacontrol(N4,P4,Z4,D4)
+Call Datacontrol(N4,P4,Z4,D4)
 Call Nutrient(N4,P4,Z4,D4,K4N)
 Call Phytoplankton(N4,P4,Z4,D4,K4P)
 Call Zooplankton(P4,Z4,D4,K4Z)
@@ -189,6 +189,7 @@ N=N+(dt/6)*(K1N+2*K2N+2*K3N+K4N)
 P=P+(dt/6)*(K1P+2*K2P+2*K3P+K4P)
 Z=Z+(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
 D=D+(dt/6)*(K1D+2*K2D+2*K3D+K4D)
+Call Datacontrol(N,P,Z,D)
 
 array_N(COUNTER)=N
 array_P(COUNTER)=P
@@ -242,20 +243,20 @@ subroutine Datacontrol(N,P,Z,D)
 
 implicit none
 real(kind=8) :: N,P,Z,D
-if (N.le.0) then
-N=0.0
+if (N.le.0.0) then
+N=0.02
 end if
 
-if (P.le.0) then
-P=0.0
+if (P.le.0.0) then
+P=0.02
 end if
 
-if (Z.le.0) then
-Z=0.0
+if (Z.le.0.0) then
+Z=0.02
 end if
 
-if (D.le.0) then
-D=0.0
+if (D.le.0.0) then
+D=0.02
 end if
 
 end subroutine

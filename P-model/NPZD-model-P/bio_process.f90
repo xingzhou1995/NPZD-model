@@ -32,13 +32,18 @@ module bio_process
    real(kind=8) :: N,P,U
    real(kind=8) :: N_l,L_l,T_l
   
-   !Temperature Limitation    
-    T_l=1.0
+   !Temperature Limitation   
+    select case(T_function) 
+    case('Luo')
+    T_l=T*exp(-alphaT*abs(T-To))
+    case default
+    print*,"Invalid N_function,program terminated"
+    stop
+    end select
    !Nutrient Limitation
     select case(N_function)
     case ('Michaelis-Menten')
     N_l=((Vm*N)/(e+N))
-    
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -58,7 +63,9 @@ module bio_process
    
     case ('Steele_1962')
     L_l=(L/L0)*exp(-L/L0)
- 
+
+    case ('Luo')
+    L_l= (1-exp((-1)*L*(alphaI/umax))*exp((-1)*(betaI/umax)*L))
     case default
     print*,"Invalid L_function,program terminated"
     stop

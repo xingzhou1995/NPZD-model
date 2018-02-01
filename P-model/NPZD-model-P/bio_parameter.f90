@@ -34,11 +34,15 @@ real(kind=8) :: Gmax   = 0.4  ! /day                 ! maximum P grazing rate by
 real(kind=8) :: sigmaP = 0.5  ! (mmolC/m3)^-1        ! preference coefficient of Z on P
 real(kind=8) :: sigmaD = 0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
  
-
-
+real(kind=8) :: To     = 18   ! centigrade           ! maximum growth rate optimal water temperature
+real(kind=8) :: alphaT = 0.004 !                     ! temperature correction coefficient on growth rate
+real(kind=8) :: alphaI = 0.5                         ! light parameter relate tothe slope of the light function
+real(kind=8) :: betaI  = 1.5                         ! photo inhibition
+real(kind=8) :: umax   = 1                           ! maximum growth rate
 ! case  judgment variable
 character(20) :: L_function
 character(20) :: N_function
+character(20) :: T_function
 character(20) :: PM_function
 character(20) :: ZM_function
 character(20) :: R_function
