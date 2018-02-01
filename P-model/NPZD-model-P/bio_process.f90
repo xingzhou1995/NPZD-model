@@ -33,7 +33,7 @@ module bio_process
    real(kind=8) :: N_l,L_l,T_l
   
    !Temperature Limitation    
-    T_l=1
+    T_l=1.0
    !Nutrient Limitation
     select case(N_function)
     case ('Michaelis-Menten')
