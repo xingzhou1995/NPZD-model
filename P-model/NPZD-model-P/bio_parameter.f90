@@ -15,7 +15,8 @@ real(kind=8) :: phi   = 0.1   !/day                  ! D remineralization rate
 !real(kind=8) :: phi    = 0.5
 real(kind=8) :: psi   = 0.08  !/day                  ! D sinking loss rate
 ! Using for calculating Uptaking and Grazing
-real(kind=8) :: e     = 0.03  !gC/m^3                ! Half-saturation constant for N uptake
+!real(kind=8) :: e     = 0.03  !gC/m^3                ! Half-saturation constant for N uptake
+real(kind=8)  :: e     = 0.6   ! mmol P/m            ! luo option
 real(kind=8) :: a     = 0.2   !/m/day                ! a/b gives maximum P growth rate
 real(kind=8) :: b     = 0.2   !/m                    ! Light attenuaton by water
 real(kind=8) :: c     = 0.4   !m^2/gC/day            ! P self-shading coefficient

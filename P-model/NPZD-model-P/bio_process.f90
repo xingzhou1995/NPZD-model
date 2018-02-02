@@ -10,13 +10,13 @@ module bio_process
    
    case ('origin')
    GP=((lamda*P**2)/(mu**2+P**2))
-   case ('luo')
+   case ('Luo')
    GP=Gmax*((sigmaP*P)/(1+sigmaP*P+sigmaD*D))
    GD=Gmax*((sigmaD*D)/(1+sigmaP*P+sigmaD*D))
    !write(*,*) "G=",G
    
     case default
-    print*,"Invalid N_function,program terminated"
+    print*,"Invalid G_function,program terminated"
     stop
     end select
    
@@ -35,7 +35,7 @@ module bio_process
    !Temperature Limitation   
     select case(T_function) 
     case('Luo')
-    T_l=T*exp(-alphaT*abs(T-To))
+    T_l=exp(-alphaT*abs(T-To))
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -65,7 +65,8 @@ module bio_process
     L_l=(L/L0)*exp(-L/L0)
 
     case ('Luo')
-    L_l= (1-exp((-1)*L*(alphaI/umax))*exp((-1)*(betaI/umax)*L))
+    !L_l= (1-exp((-1)*L*(alphaI/umax))*exp((-1)*(betaI/umax)*L))
+     L_l=1
     case default
     print*,"Invalid L_function,program terminated"
     stop
@@ -76,8 +77,8 @@ module bio_process
     U=upmax*N_l*L_l*T_l
    !write(*,*) "N_l=",N_l
    !write(*,*) "L_l=",L_l 
-   !write(*,*) "U=",U
-
+   !write(*,*) "T_l=",T_l 
+   !write(*,*) "U=",   U
    end subroutine
    
    subroutine P_mortality(P,PM)
@@ -155,7 +156,7 @@ module bio_process
    select case(ZR_function)
 
    case('Luo') 
-   ZR=gammap*exp(gammat*T)
+   ZR=gammaz*exp(gammat*T)
 
    case default
    print*,"Invalid ZR_function,program terminated"
