@@ -10,22 +10,22 @@ LINKER   = gfortran
 CFLAGS   = -c
 DFLAGS   = -o
 # PROGRAM NAME
-MAINFILES  = main.f90
-MODFILES   = bio_parameter.f90 \
-	     bio_process.f90
+MAINFILES  = MAIN.f90
+SUBFILES   = NPZD_READ.f90 
+MODFILES   = NPZD_INPUT.f90 \
+             bio_parameter.f90 \
+             bio_process.f90 
+BIOFILES   = NPZD_BIOLOGY.f90
+PHYFILES   = NPZD_PHYSICS.f90
 PREFILES   = generate_NPZD_namelist.f90
-SUBFILES   = Detritus.f90 \
-	     Nutrient.f90 \
-	     Phytoplankton.f90 \
-	     Zooplankton.f90 \
-	     NPZD_read.f90 \
+
 
 # Varibles
 #MAINPROGRAM = $(echo "${MAINFILES}" | awk -F '.' '{ print $1 }')
 #SUBPROGRAM  = $(echo "${SUBFILES}" | awk -F '.' '{ print $1 }')
 #MODPROGRAM  = $(echo "${MODFILES}" | awk -F '.' '{ print $1 }')
 #PREPROGRAM  = $(echo "$(PREFILES)" | awk -F '.' '{ print $1 }')
-MAINPROGRAM  = main
+MAINPROGRAM  = MAIN
 PREPROGRAM   = generate_NPZD_namelist
 MODPROGRAM   = bio_parameter
 OBJS        = $(MAINPROGRAM).o $(MODPROGRAM).o
@@ -46,12 +46,12 @@ all:
 
 #LINK:	$(LINKER) $(OBJS) $(DFLAGS) $(EXENAME).x
 
-MAIN:
+#MAIN:
 		
 #	$(COMPILER) $(MODFILES) $(DFLAGS) $(MODPROGRAM).o
 #	$(COMPILER) $(MAINFILES) $(SUBFILES) $(DFLAGS) $(MAINPROGRAM).o
 #	$(COMPILER) $(OBJS) -lm -o $(EXENAME).x		
-	$(COMPILER) $(MAINFILES) $(MODFILES) $(SUBFILES) $(DFLAGS) $(EXENAME).x
+#	$(COMPILER) $(MAINFILES) $(MODFILES) $(SUBFILES) $(DFLAGS) $(EXENAME).x
 
 #	MAKEFILE 1.0 DEBUG 1
 
@@ -67,6 +67,9 @@ MAIN:
 #MOD:
 #		$(COMPILER) $(MODFILES) -c $(DFLAGS) $(MODPROGRAM).o
 ##############################################################################
+
+MAIN:
+		$(COMPILER) $(MODFILES) $(MAINFILES) $(SUBFILES) $(BIOFILES) $(PHYFILES) $(DFLAGS) $(EXENAME).x
 
 NML:
 		$(COMPILER) $(PREFILES) $(DFLAGS) $(PREPROGRAM).x  
