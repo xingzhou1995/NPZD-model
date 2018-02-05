@@ -3,10 +3,14 @@ module  NPZD_input
 !time and space
 integer :: ITEM    ! how many iteration steps
 integer :: LAYER   ! how many layers in depth
+
+! NPZD_time
 real(kind=8) :: TSTART,TEND,dt
+!NPZD_IO
+character(20) :: INPDIR,OUTDIR
 
-
-
+! NPZD start and forcing file
+character(20) :: NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
 
 real(kind=8),allocatable :: array_N(:,:)
 real(kind=8),allocatable :: array_P(:,:)
@@ -30,6 +34,16 @@ real(kind=8),allocatable :: array_L(:,:)
 !allocate(array_T(ITEM+1,LAYER))
 !allocate(array_L(ITEM+1,LAYER))
 
+!contains
+!subroutine light_decay(array_L)
 
+!use NPZD_INPUT
+!implicit none
+
+!do i=1,LAYER
+!array_L(i,:)=array_L(1,:)
+!end do
+
+!end subroutine
 
 end module

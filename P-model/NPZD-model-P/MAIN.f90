@@ -8,7 +8,7 @@ real(kind=8) :: N,P,Z,D
 
 write(*,*) "NPZD model start"
 write(*,*) "Start to read input file"
-call NPZD_read
+call NPZD_READ
 
 do i=1,ITEM
  do j=1,LAYER
@@ -44,7 +44,7 @@ end do
 
 
 
-!call NPZD_write()
+call NPZD_WRITE
 
 end 
 

@@ -5,6 +5,9 @@ implicit none
 !real(kind=8) :: L = 0, T = 0
 real(kind=8) :: START_TIME = 1,END_TIME = 24,TIME_STEP = 1
 
+character(20) :: INPDIR="../input/"
+character(20) :: OUTDIR="../output/"
+
 character(20) :: NPZD_in    = "input.txt"
 character(20) :: NPZD_T_in  = "temp.txt"
 character(20) :: NPZD_l_in  = "light.txt"
@@ -21,20 +24,22 @@ character(20) :: PR_function = 'Luo'                ! P respiration
 character(20) :: ZR_function = 'Luo'                ! Z respiration
 
 
+namelist /NPZD_IO/ INPDIR,OUTDIR
 
-namelist /NPZD_IO/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
+namelist /NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
 
 namelist /NPZD_time/ START_TIME,END_TIME,TIME_STEP
 
-namelist /NPZD_process/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function,T_function
+namelist /NPZD_bioprocess/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function,T_function
 
 !namelist /NPZD_forcing/ L,T
 
 open(22,file="NPZD.nml")
 !write(22,nml=NPZD_data)
 write(22,nml=NPZD_IO)
+write(22,nml=NPZD_data)
 write(22,nml=NPZD_time)
-write(22,nml=NPZD_process)
+write(22,nml=NPZD_bioprocess)
 !write(22,nml=NPZD_forcing)
 close(22)
 end
