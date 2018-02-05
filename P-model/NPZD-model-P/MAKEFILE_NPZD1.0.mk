@@ -11,10 +11,13 @@ CFLAGS   = -c
 DFLAGS   = -o
 # PROGRAM NAME
 MAINFILES  = MAIN.f90
-SUBFILES   = NPZD_READ.f90 
+SUBFILES   = NPZD_READ.f90 \
+             NPZD_WRITE.f90 
 MODFILES   = NPZD_INPUT.f90 \
              bio_parameter.f90 \
-             bio_process.f90 
+             bio_process.f90 \
+             phy_parameter.f90 \
+             phy_process.f90 
 BIOFILES   = NPZD_BIOLOGY.f90
 PHYFILES   = NPZD_PHYSICS.f90
 PREFILES   = generate_NPZD_namelist.f90
