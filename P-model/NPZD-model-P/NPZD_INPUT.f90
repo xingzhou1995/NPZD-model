@@ -4,8 +4,8 @@ module  NPZD_input
 integer :: ITEM    ! how many iteration steps
 integer :: LAYER   ! how many layers in depth
 
-! NPZD_time
-real(kind=8) :: TSTART,TEND,dt
+! NPZD_time and space
+real(kind=8) :: TSTART,TEND,dt,dh
 !NPZD_IO
 character(20) :: INPDIR,OUTDIR
 

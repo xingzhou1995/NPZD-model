@@ -1,4 +1,4 @@
-subroutine NPZD_BIOLOGY(N,P,Z,D,dt)
+subroutine NPZD_BIOLOGY(i)
 ! Description:
 ! a 1D NPZD model by using RK4 method
 !
@@ -6,14 +6,12 @@ subroutine NPZD_BIOLOGY(N,P,Z,D,dt)
 !
 !
 
-!use bio_parameter
-!use NPZD_input
+use NPZD_input
+use bio_parameter
 implicit none
-!integer      :: i,ITEM
+integer :: i,j,time
 real(kind=8) :: N,P,Z,D
-!real(kind=8) :: TSTART,TEND,dt
-!integer      :: TSTART,TEND,dt
-real(kind=8)   :: dt
+!real(kind=8)   :: dt
 ! inner data
 real(kind=8) :: N1,P1,Z1,D1
 real(kind=8) :: N2,P2,Z2,D2
@@ -24,44 +22,7 @@ real(kind=8) :: K2N,K2P,K2Z,K2D
 real(kind=8) :: K3N,K3P,K3Z,K3D
 real(kind=8) :: K4N,K4P,K4Z,K4D
 
-! output data
-!integer :: COUNTER
-!real(kind=8),allocatable :: array_N(:)
-!real(kind=8),allocatable :: array_P(:)
-!real(kind=8),allocatable :: array_Z(:)
-!real(kind=8),allocatable :: array_D(:)
-
-!open and reading data
-
-!call NPZD_read(N,P,Z,D,TSTART,TEND,dt,ITEM)
-!write(*,*),"ITEM=",ITEM
-!write(*,*),"L=",L
-!write(*,*),"T=",T
-!deallocate(N_array)
-!deallocate(P_array)
-!deallocate(Z_array)
-!deallocate(D_array)
-
-!ir(.not.allocated( array_N)) then 
-! allocate( array_N(ITEM+1))
-! write(*,*),"ALLOCATED N Array Successful!"
-!end if
-!if(.not.allocated( array_P)) then 
-!allocate( array_P(ITEM+1))
-! write(*,*),"ALLOCATED P Array Successful!"
-!end if 
-!if(.not.allocated( array_Z)) then 
-!allocate( array_Z(ITEM+1))
-!write(*,*),"ALLOCATED Z Array Successful!"
-!end if
-!if(.not.allocated( array_D)) then
-!allocate( array_D(ITEM+1))
-! write(*,*),"ALLOCATED D Array Successful!"
-!end if
-
-
-!write(*,*),"ALLOCATED NPZD Array Successful!"
-
+time = i
 !RK4 method
 
 
@@ -73,13 +34,13 @@ real(kind=8) :: K4N,K4P,K4Z,K4D
 
 !write(*,*) "NPZD model start"
 
-!Write(*,*),"###############################"
+!Write(*,*),"############BIOLOGY PROCESS###################"
 !Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"N=",N
 !Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"P=",P
 !Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"Z=",Z
 !Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"D=",D
 !Write(*,*),"TIME=",TSTART+(COUNTER-1)*dt,"SUM=",N+P+Z+D
-!write(*,*),"###############################"
+!write(*,*),"############BIOLOGY PROCESS###################"
 
 
 ! do i=1,ITEM
@@ -105,6 +66,21 @@ real(kind=8) :: K4N,K4P,K4Z,K4D
 !D=0.0
 !end if
 
+do j=1,LAYER
+    N=array_N(time,j)
+    P=array_P(time,j)
+    Z=array_Z(time,j)
+    D=array_D(time,j)
+    T=array_T(time,j)
+    L=array_L(time,j)
+
+Write(*,*),"#############BIOLOGY PROCESS##################"
+Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N
+Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"P=",P
+Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"Z=",Z
+Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"D=",D
+Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"SUM=",N+P+Z+D
+write(*,*),"#############BIOLOGY PROCESS##################"
 
 
 ! k1
@@ -192,6 +168,15 @@ P=P+(dt/6)*(K1P+2*K2P+2*K3P+K4P)
 Z=Z+(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
 D=D+(dt/6)*(K1D+2*K2D+2*K3D+K4D)
 Call Datacontrol(N,P,Z,D)
+
+
+   array_N(time+1,j)=N
+   array_P(time+1,j)=P
+   array_Z(time+1,j)=Z
+   array_D(time+1,j)=D
+
+end do
+
 
 !array_N(COUNTER)=N
 !array_P(COUNTER)=P

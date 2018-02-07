@@ -12,7 +12,7 @@ integer :: i,j,error
 real :: ITEM1
 namelist / NPZD_IO/ INPDIR,OUTDIR
 namelist / NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
-namelist / NPZD_time/ START_TIME,END_TIME,TIME_STEP
+namelist / NPZD_time/ START_TIME,END_TIME,TIME_STEP,dh
 namelist / NPZD_bioprocess/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function,T_function 
 
 open(33,file="NPZD.nml")
