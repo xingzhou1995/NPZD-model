@@ -51,8 +51,8 @@ end do
 LAYER=LAYER-1
 rewind(44)
 
-write(*,*),"ITEM=",ITEM
-write(*,*),"LAYER=",LAYER
+write(*,*) "ITEM=",ITEM
+write(*,*) "LAYER=",LAYER
 
 
 allocate(array_N(ITEM+1,LAYER))
@@ -62,7 +62,7 @@ allocate(array_D(ITEM+1,LAYER))
 allocate(array_T(ITEM+1,LAYER))
 allocate(array_L(ITEM+1,LAYER))
 
-write(*,*),"Allocate successful"
+write(*,*) "Allocate successful"
 
 ! read initial field
 
@@ -71,7 +71,7 @@ do i=1,LAYER
 end do
 close(44)
 
-write(*,*),"N,P,Z,D data read successful"
+write(*,*) "N,P,Z,D data read successful"
  
 ! read T
 open(55,file=trim(INPDIR)//trim(NPZD_T_in))
@@ -80,7 +80,7 @@ do i=1,LAYER
 end do
 close(55)
 
-write(*,*),"T read successful"
+write(*,*) "T read successful"
 
 ! read L
 open(66,file=trim(INPDIR)//trim(NPZD_L_in))
@@ -91,5 +91,5 @@ end do
 call light_decay()
 close(66)
 
-write(*,*),"L read successful"
+write(*,*) "L read successful"
 end subroutine

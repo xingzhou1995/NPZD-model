@@ -74,13 +74,13 @@ do j=1,LAYER
     T=array_T(time,j)
     L=array_L(time,j)
 
-Write(*,*),"#############BIOLOGY PROCESS##################"
-Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N
-Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"P=",P
-Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"Z=",Z
-Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"D=",D
-Write(*,*),"TIME=",TSTART+(time-1)*dt,"LAYER=",j,"SUM=",N+P+Z+D
-write(*,*),"#############BIOLOGY PROCESS##################"
+Write(*,*) "#############BIOLOGY PROCESS##################"
+Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N
+Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"P=",P
+Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"Z=",Z
+Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"D=",D
+Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"SUM=",N+P+Z+D
+write(*,*) "#############BIOLOGY PROCESS##################"
 
 
 ! k1

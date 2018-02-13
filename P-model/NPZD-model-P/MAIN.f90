@@ -11,8 +11,8 @@ write(*,*) "Start to read input file"
 call NPZD_READ
 
 do i=1,ITEM
-!call NPZD_BIOLOGY(i)
-call NPZD_PHYSICS(i)
+call NPZD_BIOLOGY(i)
+!call NPZD_PHYSICS(i)
 end do
 
 !write program
