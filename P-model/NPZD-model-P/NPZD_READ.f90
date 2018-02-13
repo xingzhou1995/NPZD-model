@@ -78,15 +78,19 @@ open(55,file=trim(INPDIR)//trim(NPZD_T_in))
 do i=1,LAYER
   read(55,*,iostat=error) (array_T(i,j),j=1,ITEM)
 end do
+!do i=1,LAYER
+!write(*,*) (array_T(i,j),j=1,ITEM)
+!end do
 close(55)
 
 write(*,*) "T read successful"
 
 ! read L
 open(66,file=trim(INPDIR)//trim(NPZD_L_in))
-do i=1,ITEM
-  read(66,*,iostat=error) array_L(1,i)
-end do
+!do i=1,ITEM
+  read(66,*,iostat=error) array_L
+  !write(*,*) array_L
+!end do
 ! remain calculateing the light intensity decay with depth undone
 call light_decay()
 close(66)

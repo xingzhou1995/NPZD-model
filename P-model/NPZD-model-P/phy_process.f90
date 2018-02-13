@@ -18,15 +18,15 @@ real(kind=8) :: tmp
 !end do
 
 ! decay chen
-do i=1,LAYER
  do j=1,ITEM+1
+  do i=1,LAYER
  array_L(j,i)=array_L(j,1)*transferlight
  tmp=array_L(j,1)*exp(-kext*(i-1)*dh)
  array_L(j,i)=tmp
+!write(*,*) array_L(j,i)
  end do
 end do
-
-
+!write(*,*) array_L
 
 end subroutine
 
