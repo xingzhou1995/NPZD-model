@@ -51,13 +51,13 @@ real(kind=8) :: N2(LAYER),P2(LAYER),Z2(LAYER),D2(LAYER)
 !read data
 do j=1,LAYER
 !N1(j)=array_N(time-1,j)
-N1(j)=array_N(time,j)
+N1(j)=array_N(time+1,j)
 !P1(j)=array_P(time-1,j)
-P1(j)=array_P(time,j)
+P1(j)=array_P(time+1,j)
 !Z1(j)=array_Z(time-1,j)
-Z1(j)=array_Z(time,j)
+Z1(j)=array_Z(time+1,j)
 !D1(j)=array_D(time-1,j)
-D1(j)=array_D(time,j)
+D1(j)=array_D(time+1,j)
 end do
 
 do j=1,LAYER
@@ -290,10 +290,10 @@ real(kind=8) ::  N2(LAYER),P2(LAYER),Z2(LAYER),D2(lAYER)
 
 do i=1,LAYER
 
-N1(i)=array_N(time,i)
-P1(i)=array_P(time,i)
-Z1(i)=array_Z(time,i)
-D1(i)=array_D(time,i)
+N1(i)=array_N(time+1,i)
+P1(i)=array_P(time+1,i)
+Z1(i)=array_Z(time+1,i)
+D1(i)=array_D(time+1,i)
 
 end do
 
