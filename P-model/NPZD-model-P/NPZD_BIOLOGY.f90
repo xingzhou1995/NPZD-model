@@ -71,8 +71,10 @@ do j=1,LAYER
     P=array_P(time,j)
     Z=array_Z(time,j)
     D=array_D(time,j)
-    T=array_T(time,j)
-    L=array_L(time,j)
+    T=array_T(floor(1+(time-1)*dt),j)
+    L=array_L(floor(1+(time-1)*dt),j)
+
+Write(*,*) "T=",T,"L=",L
 
 Write(*,*) "#############BIOLOGY PROCESS##################"
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N

@@ -3,7 +3,7 @@ module  NPZD_input
 !time and space
 integer :: ITEM    ! how many iteration steps
 integer :: LAYER   ! how many layers in depth
-
+integer :: DDAY    ! how many days 
 ! NPZD_time and space
 real(kind=8) :: TSTART,TEND,dt,dh
 !NPZD_IO

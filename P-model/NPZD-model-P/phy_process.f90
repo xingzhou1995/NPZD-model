@@ -18,7 +18,7 @@ real(kind=8) :: tmp
 !end do
 
 ! decay chen
- do j=1,ITEM+1
+ do j=1,DDAY+1
   do i=1,LAYER
  array_L(j,i)=array_L(j,1)*transferlight
  tmp=array_L(j,1)*exp(-kext*(i-1)*dh)
