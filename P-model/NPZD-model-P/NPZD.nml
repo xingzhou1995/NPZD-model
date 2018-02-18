@@ -1,0 +1,27 @@
+&NPZD_IO
+ INPDIR="../input/           ",
+ OUTDIR="../output/          ",
+ /
+&NPZD_DATA
+ NPZD_IN="input.txt           ",
+ NPZD_T_IN="temp.txt            ",
+ NPZD_L_IN="light.txt           ",
+ NPZD_OUT="output.txt          ",
+ /
+&NPZD_TIME
+ START_TIME=  1.0000000000000000     ,
+ END_TIME=  302.000000000000000     ,
+ TIME_STEP= 1.0000000000000     ,
+ DH=  5.0000000000000000     ,
+ /
+&NPZD_BIOPROCESS
+ L_FUNCTION="Steele_1962         ",
+ N_FUNCTION="Michaelis-Menten    ",
+ PM_FUNCTION="Linear              ",
+ ZM_FUNCTION="Linear           ",
+ R_FUNCTION="Luo              ",
+ G_FUNCTION="Luo              ",
+ PR_FUNCTION="Luo                 ",
+ ZR_FUNCTION="Luo                 ",
+ T_FUNCTION="Luo                 ",
+ /
