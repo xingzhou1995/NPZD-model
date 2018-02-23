@@ -14,7 +14,12 @@ module bio_process
    GP=Gmax*((sigmaP*P)/(1+sigmaP*P+sigmaD*D))
    GD=Gmax*((sigmaD*D)/(1+sigmaP*P+sigmaD*D))
    !write(*,*) "G=",G
-   
+    
+    case('Ivlev')
+    GP=Gmax*(1-exp(-lamda*P))
+    GD=0
+
+ 
     case default
     print*,"Invalid G_function,program terminated"
     stop
@@ -55,8 +60,8 @@ module bio_process
     case ('Saturating_response1')
     L_l=(L/(L0+L))   
 
-    case ('Saturating_respose2' )
-    L_l=L-exp(-L/L0)
+    case ('Saturating_response2' )
+    L_l=1-exp(-L/L0)
 
     case ('Edwards_1997')
     L_l=(a)/(b+c*P)

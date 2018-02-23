@@ -232,19 +232,18 @@ subroutine Datacontrol(N,P,Z,D)
 
 implicit none
 real(kind=8) :: N,P,Z,D
-if (N.le.0.0) then
+if (N.lt.0.00000) then
 N=0.02
 end if
-
-if (P.le.0.0) then
+if (P.lt.0.00000) then
 P=0.02
 end if
 
-if (Z.le.0.0) then
+if (Z.lt.0.00000) then
 Z=0.02
 end if
 
-if (D.le.0.0) then
+if (D.lt.0.00000) then
 D=0.02
 end if
 
@@ -256,11 +255,12 @@ use bio_parameter
 use bio_process
 implicit none
 real(kind=8) :: N,P,Z,D,KN
-real(kind=8) :: U,GP,GD,ZM,RR,PR,ZR
+real(kind=8) :: U,GP,GD,ZM,RR,PR,ZR,PM
 
 
-
-
+BIO_MODEL=trim(BIO_MODEL)
+select case(BIO_MODEL)
+ case('NPZD')
 call grazing(P,Z,D,GP,GD)
 call uptaking(N,P,U)
 call Z_mortality(Z,ZM)
@@ -276,7 +276,17 @@ call Z_respiration(Z,ZR)
 !Adding respiration
 KN=-U*P+ZR*Z+PR*P+RR*D
 
+case('NPZ')
+call uptaking(N,P,U)
+call grazing(P,Z,D,GP,GD)
+call P_mortality(P,PM)
+call Z_mortality(Z,ZM)
+KN=-U*P+(1-beta)*GP*Z+PM*P+ZM*Z
 
+case default
+print*,"Invalid BIO_MODEL,program terminated"
+stop
+end select
 
 end subroutine
 
@@ -289,7 +299,10 @@ implicit none
 real(kind=8) :: N,P,Z,D,KP
 real(kind=8) :: U,GP,GD,PM,PR
 
+BIO_MODEL=trim(BIO_MODEL)
+select case(BIO_MODEL)
 
+case('NPZD')
 call uptaking(N,P,U)
 call grazing(P,Z,D,GP,GD)
 call P_mortality(P,PM)
@@ -309,6 +322,21 @@ KP=U*P-PR*P-PM*P-GP*Z
 !write(*,*) "U=",U
 !write(*,*) "I=",I
 
+case('NPZ')
+
+call uptaking(N,P,U)
+call grazing(P,Z,D,GP,GD)
+call P_mortality(P,PM)
+KP=U*P-GP*Z-PM*P
+
+case default
+print*,"Invalid BIO_MODEL,program terminated"
+stop
+end select
+
+
+
+
 
 end subroutine
 
@@ -320,7 +348,9 @@ implicit none
 real(kind=8) :: P,Z,D,KZ
 real(kind=8) :: GP,GD,ZM,ZR
 
-
+BIO_MODEL=trim(BIO_MODEL)
+select case(BIO_MODEL)
+case('NPZD')
 call grazing(P,Z,D,GP,GD)
 call Z_mortality(Z,ZM)
 call Z_respiration(Z,ZR)
@@ -333,6 +363,21 @@ KZ=GP*Z+GD*Z-ZR*Z-ZM*Z
 !write(*,*),"GD=",GD
 !write(*,*),"ZR=",ZR
 !write(*,*),"ZM=",ZM
+
+
+case('NPZ')
+call grazing(P,Z,D,GP,GD)
+call Z_mortality(Z,ZM)
+KZ=beta*GP*Z-ZM*Z
+
+case default
+print*,"Invalid BIO_MODEL,program terminated"
+stop
+end select
+
+
+
+
 end subroutine
 
 subroutine Detritus(P,Z,D,KD)
@@ -344,7 +389,10 @@ implicit none
 real(kind=8) :: P,Z,D,KD
 real(kind=8) :: GP,GD,PM,ZM,RR
 
+BIO_MODEL=trim(BIO_MODEL)
 
+select case(BIO_MODEL)
+case('NPZD')
 call grazing(P,Z,D,GP,GD)
 call P_mortality(P,PM)
 call Z_mortality(Z,ZM)
@@ -357,6 +405,17 @@ call remineralization(D,RR)
 
 !Luo option
 KD=PM*P+ZM*Z-GD*Z-RR*D
+
+case('NPZ')
+
+KD=0
+
+case default
+print*,"Invalid BIO_MODEL,program terminated"
+stop
+end select
+
+
 end subroutine
 
 

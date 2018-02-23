@@ -22,8 +22,9 @@ character(20) :: R_function = 'Linear'              ! D reminerlization function
 character(20) :: G_function = 'origin'              ! Grazing
 character(20) :: PR_function = 'Luo'                ! P respiration
 character(20) :: ZR_function = 'Luo'                ! Z respiration
+character(20) :: BIO_MODEL   = 'NPZD'               ! BIOLOGY MODEL PART
 
-
+namelist /NPZD_SELECT/ BIO_MODEL
 namelist /NPZD_IO/ INPDIR,OUTDIR
 
 namelist /NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
@@ -36,6 +37,7 @@ namelist /NPZD_bioprocess/ L_function,N_function,PM_function,ZM_function,R_funct
 
 open(22,file="NPZD.nml")
 !write(22,nml=NPZD_data)
+write(22,nml=NPZD_SELECT)
 write(22,nml=NPZD_IO)
 write(22,nml=NPZD_data)
 write(22,nml=NPZD_time)
