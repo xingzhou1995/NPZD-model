@@ -96,6 +96,14 @@ Call Phytoplankton(N1,P1,Z1,D1,K1P)
 Call Zooplankton(P1,Z1,D1,K1Z)
 Call Detritus(P1,Z1,D1,K1D)
 
+!N=N+K1N*dt
+!P=P+K1P*dt
+!Z=Z+K1Z*dt
+!D=D+K1D*dt
+
+
+
+
 !write(*,*) "#######################"
 !write(*,*) "K1N=",K1N
 !write(*,*) "K1P=",K1P
@@ -105,7 +113,7 @@ Call Detritus(P1,Z1,D1,K1D)
 
 
 ! k2
-N2=N+(dt/2)*K1N
+N2=N+(dt/2)*K1N!
 P2=P+(dt/2)*K1P
 Z2=Z+(dt/2)*K1Z
 D2=D+(dt/2)*K1D
@@ -165,6 +173,13 @@ Call Detritus(P4,Z4,D4,K4D)
 
 
 !iteration
+
+!write(*,*) "KN=",(dt/6)*(K1N+2*K2N+2*K3N+K4N)
+!write(*,*) "KP=",(dt/6)*(K1P+2*K2P+2*K3P+K4P)
+!write(*,*) "KZ=",(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
+!write(*,*) "KD=",(dt/6)*(K1D+2*K2D+2*K3D+K4D)
+
+
 N=N+(dt/6)*(K1N+2*K2N+2*K3N+K4N)
 P=P+(dt/6)*(K1P+2*K2P+2*K3P+K4P)
 Z=Z+(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
@@ -177,6 +192,8 @@ Call Datacontrol(N,P,Z,D)
    array_Z(time+1,j)=Z
    array_D(time+1,j)=D
 
+
+  
 end do
 
 
@@ -229,22 +246,22 @@ end subroutine
 
 
 subroutine Datacontrol(N,P,Z,D)
-
+use bio_parameter
 implicit none
 real(kind=8) :: N,P,Z,D
 if (N.lt.0.00000) then
-N=0.02
+N=N_0
 end if
 if (P.lt.0.00000) then
-P=0.02
+P=P_0
 end if
 
 if (Z.lt.0.00000) then
-Z=0.02
+Z=Z_0
 end if
 
 if (D.lt.0.00000) then
-D=0.02
+D=D_0
 end if
 
 end subroutine
@@ -282,7 +299,10 @@ call grazing(P,Z,D,GP,GD)
 call P_mortality(P,PM)
 call Z_mortality(Z,ZM)
 KN=-U*P+(1-beta)*GP*Z+PM*P+ZM*Z
-
+!write(*,*) U*P
+!write(*,*) (1-beta)*GP*Z
+!write(*,*) PM*P
+!write(*,*) ZM*Z
 case default
 print*,"Invalid BIO_MODEL,program terminated"
 stop

@@ -4,11 +4,12 @@ use NPZD_input
 use phy_parameter
 use phy_process
 implicit none
-integer :: i,j,time
+integer :: i,j,k,time
 
 
 time=i
-call sinking(time)
+!call sinking(time)
+
 call mixing(time)
 
 

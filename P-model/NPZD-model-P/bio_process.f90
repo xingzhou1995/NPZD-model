@@ -14,17 +14,20 @@ module bio_process
    GP=Gmax*((sigmaP*P)/(1+sigmaP*P+sigmaD*D))
    GD=Gmax*((sigmaD*D)/(1+sigmaP*P+sigmaD*D))
    !write(*,*) "G=",G
-    
+   !write(*,*) "GP=",GP 
+   !write(*,*) "GD=",GD 
+ 
     case('Ivlev')
     GP=Gmax*(1-exp(-lamda*P))
     GD=0
+   ! GD=Gmax*(1-exp(-lamda*D))
 
  
     case default
     print*,"Invalid G_function,program terminated"
     stop
     end select
-   
+ !  write(*,*) "GP=",GP   
 
    end subroutine
 
@@ -58,7 +61,7 @@ module bio_process
     L_function=trim(L_function)
     select case (L_function)
     case ('Saturating_response1')
-    L_l=(L/(L0+L))   
+    L_l=(L/(L0))   
 
     case ('Saturating_response2' )
     L_l=1-exp(-L/L0)
@@ -80,10 +83,10 @@ module bio_process
    
 !Uptaking
     U=upmax*N_l*L_l*T_l
-   !write(*,*) "N_l=",N_l
-   !write(*,*) "L_l=",L_l 
-   !write(*,*) "T_l=",T_l 
-   !write(*,*) "U=",   U
+ !  write(*,*) "N_l=",N_l
+ !   write(*,*) "L_l=",L_l 
+ !  write(*,*) "T_l=",T_l 
+ !  write(*,*) "U=",   U
    end subroutine
    
    subroutine P_mortality(P,PM)
@@ -162,6 +165,8 @@ module bio_process
 
    case('Luo') 
    ZR=gammaz*exp(gammat*T)
+   
+   !write(*,*) "ZR=",ZR    
 
    case default
    print*,"Invalid ZR_function,program terminated"
@@ -172,4 +177,4 @@ module bio_process
 
        
 end module bio_process                                                                               
-                                                                                                             
+                                                                                                            

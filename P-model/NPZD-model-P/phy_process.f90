@@ -50,14 +50,14 @@ real(kind=8) :: N2(LAYER),P2(LAYER),Z2(LAYER),D2(LAYER)
 
 !read data
 do j=1,LAYER
-!N1(j)=array_N(time-1,j)
-N1(j)=array_N(time+1,j)
-!P1(j)=array_P(time-1,j)
-P1(j)=array_P(time+1,j)
-!Z1(j)=array_Z(time-1,j)
-Z1(j)=array_Z(time+1,j)
-!D1(j)=array_D(time-1,j)
-D1(j)=array_D(time+1,j)
+N1(j)=array_N(time,j)
+!N1(j)=array_N(time+1,j)
+P1(j)=array_P(time,j)
+!P1(j)=array_P(time+1,j)
+Z1(j)=array_Z(time,j)
+!Z1(j)=array_Z(time+1,j)
+D1(j)=array_D(time,j)
+!D1(j)=array_D(time+1,j)
 end do
 
 do j=1,LAYER
@@ -280,10 +280,11 @@ use phy_parameter
 implicit none
 integer :: i,j
 integer :: time
-real(kind=8) :: S
-real(kind=8) ::  BELOW(LAYER)
-real(kind=8) ::  MAIN(LAYER)
-real(kind=8) ::  ABOVE(LAYER)
+!real(kind=8) :: mix_dt
+real(kind=8) ::  S_N,S_P,S_Z,S_D
+real(kind=8) ::  BELOW_N(LAYER),BELOW_P(LAYER),BELOW_Z(LAYER),BELOW_D(LAYER)
+real(kind=8) ::  MAIN_N(LAYER),MAIN_P(LAYER),MAIN_Z(LAYER),MAIN_D(LAYER)
+real(kind=8) ::  ABOVE_N(LAYER),ABOVE_P(LAYER),ABOVE_Z(LAYER),ABOVE_D(LAYER)
 real(kind=8) ::  N1(LAYER),P1(LAYER),Z1(LAYER),D1(lAYER)
 real(kind=8) ::  N2(LAYER),P2(LAYER),Z2(LAYER),D2(lAYER)
 !intial value
@@ -295,6 +296,13 @@ P1(i)=array_P(time+1,i)
 Z1(i)=array_Z(time+1,i)
 D1(i)=array_D(time+1,i)
 
+!debug option
+
+!N1(i)=array_N(time,i)
+!P1(i)=array_P(time,i)
+!Z1(i)=array_Z(time,i)
+!D1(i)=array_D(time,i)
+
 end do
 
 !write(*,*) N1
@@ -303,35 +311,95 @@ end do
 !dt = 1 !time step
 !A  = 2 ! diffuse coefficient
 
-S  = A*((dt)/(dh*dh))
+!mix_dt=1
+S_N  = A_N*((dt)/(dh*dh))
+S_P  = A_P*((dt)/(dh*dh))
+S_Z  = A_Z*((dt)/(dh*dh))
+S_D  = A_D*((dt)/(dh*dh))
+!S  = A*((mix_dt)/(dh*dh))
 
-BELOW(1)= 0
-BELOW(LAYER)= (-1)*S
-ABOVE(1) = (-1)*S
+BELOW_N(1)= 0
+BELOW_N(LAYER)= (-1)*S_N
+ABOVE_N(1) = (-1)*S_N
 !ABOVE(1) = S
-ABOVE(LAYER) = 0
-MAIN(1) = 1+S
-MAIN(LAYER) = 1+S
+ABOVE_N(LAYER) = 0
+MAIN_N(1) = 1+S_N
+MAIN_N(LAYER) = 1+S_N
 !MAIN(1)=1-S
 
 
+BELOW_P(1)= 0
+BELOW_P(LAYER)= (-1)*S_P
+ABOVE_P(1) = (-1)*S_P
+!ABOVE(1) = S
+ABOVE_P(LAYER) = 0
+MAIN_P(1) = 1+S_P
+MAIN_P(LAYER) = 1+S_P
+!MAIN(1)=1-S
+
+
+BELOW_Z(1)= 0
+BELOW_Z(LAYER)= (-1)*S_Z
+ABOVE_Z(1) = (-1)*S_Z
+!ABOVE(1) = S
+ABOVE_Z(LAYER) = 0
+MAIN_Z(1) = 1+S_Z
+MAIN_Z(LAYER) = 1+S_Z
+!MAIN(1)=1-S
+
+BELOW_D(1)= 0
+BELOW_D(LAYER)= (-1)*S_D
+ABOVE_D(1) = (-1)*S_D
+!ABOVE(1) = S
+ABOVE_D(LAYER) = 0
+MAIN_D(1) = 1+S_D
+MAIN_D(LAYER) = 1+S_D
+!MAIN(1)=1-S
+
 
 do i=2,LAYER-1
-BELOW(i) = (-1)*S
-MAIN(i)  = 1+2*S
-ABOVE(i) = (-1)*S
+BELOW_N(i) = (-1)*S_N
+MAIN_N(i)  = 1+2*S_N
+ABOVE_N(i) = (-1)*S_N
 end do
+
+do i=2,LAYER-1
+BELOW_P(i) = (-1)*S_P
+MAIN_P(i)  = 1+2*S_P
+ABOVE_P(i) = (-1)*S_P
+end do
+
+do i=2,LAYER-1
+BELOW_Z(i) = (-1)*S_Z
+MAIN_Z(i)  = 1+2*S_Z
+ABOVE_Z(i) = (-1)*S_Z
+end do
+
+do i=2,LAYER-1
+BELOW_D(i) = (-1)*S_D
+MAIN_D(i)  = 1+2*S_D
+ABOVE_D(i) = (-1)*S_D
+end do
+
 
 !write(*,*) BELOW
 !write(*,*) MAIN
 !write(*,*) ABOVE
 
 
-call solve_tradiag(BELOW,MAIN,ABOVE,N1,N2,LAYER)
-call solve_tradiag(BELOW,MAIN,ABOVE,P1,P2,LAYER)
-call solve_tradiag(BELOW,MAIN,ABOVE,Z1,Z2,LAYER)
-call solve_tradiag(BELOW,MAIN,ABOVE,D1,D2,LAYER)
+!do i=1,86400
+call solve_tradiag(BELOW_N,MAIN_N,ABOVE_N,N1,N2,LAYER)
+call solve_tradiag(BELOW_P,MAIN_P,ABOVE_P,P1,P2,LAYER)
+call solve_tradiag(BELOW_Z,MAIN_Z,ABOVE_Z,Z1,Z2,LAYER)
+call solve_tradiag(BELOW_D,MAIN_D,ABOVE_D,D1,D2,LAYER)
 
+ !do j=1,LAYER
+ ! N1(j)=N2(j);
+ ! P1(j)=P2(j);
+ ! Z1(j)=Z2(j);
+ ! D1(j)=D2(j);
+ !end do
+!end do
 
 do j=1,LAYER
 
