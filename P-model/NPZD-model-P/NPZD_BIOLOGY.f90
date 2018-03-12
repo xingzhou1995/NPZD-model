@@ -73,7 +73,8 @@ do j=1,LAYER
     D=array_D(time,j)
     T=array_T(floor(1+(time-1)*dt),j)
     L=array_L(floor(1+(time-1)*dt),j)
-
+  !   T=array_T(floor(1+((time-1)/86400)*dt),j)
+  !    L=array_L(floor(1+((time-1)/86400)*dt),j)
 Write(*,*) "T=",T,"L=",L
 
 Write(*,*) "#############BIOLOGY PROCESS##################"

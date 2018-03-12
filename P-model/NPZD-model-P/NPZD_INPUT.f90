@@ -21,6 +21,9 @@ real(kind=8),allocatable :: array_D(:,:)
 real(kind=8),allocatable :: array_T(:,:)
 real(kind=8),allocatable :: array_L(:,:)
 
+
+logical(kind=4) :: RESTART_ON
+real(kind=8) :: RESTART_INTERVAL
 !allocate(array_N(LAYER,ITEM+1))
 !allocate(array_P(LAYER,ITEM+1))
 !allocate(array_Z(LAYER,ITEM+1))

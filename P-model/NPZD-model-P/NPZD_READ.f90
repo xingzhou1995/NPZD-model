@@ -12,6 +12,7 @@ integer :: i,j,error
 real :: ITEM1
 namelist / NPZD_SELECT/ BIO_MODEL
 namelist / NPZD_IO/ INPDIR,OUTDIR
+namelist / NPZD_RESTART/ RESTART_ON,RESTART_INTERVAL
 namelist / NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
 namelist / NPZD_time/ START_TIME,END_TIME,TIME_STEP,dh
 namelist / NPZD_bioprocess/ L_function,N_function,PM_function,ZM_function,R_function,G_function,PR_function,ZR_function,T_function 
@@ -19,6 +20,7 @@ namelist / NPZD_bioprocess/ L_function,N_function,PM_function,ZM_function,R_func
 open(33,file="NPZD.nml")
 read(33,nml=NPZD_SELECT)
 read(33,nml=NPZD_IO)
+read(33,nml=NPZD_RESTART)
 read(33,nml=NPZD_data) 
 read(33,nml=NPZD_time)
 read(33,nml=NPZD_bioprocess)
@@ -38,7 +40,7 @@ stop
 !exit
 end if
 ITEM1=(TEND-TSTART)/dt
-DDAY =TEND-TSTART
+DDAY =(TEND-TSTART)!/86400 ! in second divide 86400
 !write(*,*),"ITEM1=",ITEM1
 ITEM=ceiling(ITEM1)
 !write(*,*),"ITEM=",ITEM

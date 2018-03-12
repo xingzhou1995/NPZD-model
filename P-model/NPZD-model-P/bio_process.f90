@@ -19,8 +19,8 @@ module bio_process
  
     case('Ivlev')
     GP=Gmax*(1-exp(-lamda*P))
-    GD=0
-   ! GD=Gmax*(1-exp(-lamda*D))
+   ! GD=0
+    GD=Gmax*(1-exp(-lamda*D))
 
  
     case default
@@ -83,10 +83,10 @@ module bio_process
    
 !Uptaking
     U=upmax*N_l*L_l*T_l
- !  write(*,*) "N_l=",N_l
- !   write(*,*) "L_l=",L_l 
- !  write(*,*) "T_l=",T_l 
- !  write(*,*) "U=",   U
+!   write(*,*) "N_l=",N_l
+!    write(*,*) "L_l=",L_l 
+!   write(*,*) "T_l=",T_l 
+!   write(*,*) "U=",   U
    end subroutine
    
    subroutine P_mortality(P,PM)

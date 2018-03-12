@@ -24,8 +24,12 @@ character(20) :: PR_function = 'Luo'                ! P respiration
 character(20) :: ZR_function = 'Luo'                ! Z respiration
 character(20) :: BIO_MODEL   = 'NPZD'               ! BIOLOGY MODEL PART
 
+logical(kind=4) :: RESTART_ON
+real(kind=8) :: RESTART_INTERVAL = 10
+
 namelist /NPZD_SELECT/ BIO_MODEL
 namelist /NPZD_IO/ INPDIR,OUTDIR
+namelist /NPZD_RESTART/ RESTART_ON,RESTART_INTERVAL
 
 namelist /NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
 
@@ -39,6 +43,7 @@ open(22,file="NPZD.nml")
 !write(22,nml=NPZD_data)
 write(22,nml=NPZD_SELECT)
 write(22,nml=NPZD_IO)
+write(22,nml=NPZD_RESTART)
 write(22,nml=NPZD_data)
 write(22,nml=NPZD_time)
 write(22,nml=NPZD_bioprocess)

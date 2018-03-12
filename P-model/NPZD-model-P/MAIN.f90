@@ -15,6 +15,8 @@ call NPZD_BIOLOGY(i)
 
 call NPZD_PHYSICS(i)
 
+call NPZD_RESTART(i)
+
 !call NPZD_BIOLOGY(i)
 
 end do

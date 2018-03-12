@@ -5,9 +5,9 @@ real(kind=8) :: alpha = 0.25                         ! Z growth efficiency
 real(kind=8) :: beta  = 0.7 !0.7 !(Edward Chen)0.3                         ! Z excretion fraction
 real(kind=8) :: gama  = 0.8 !0.3                         ! Regeneration of Z predation excretion (assuming no higher predator)
 !real(kind=8) :: r     = 0.15  !/day                  ! P mortality rate
- real(kind=8) :: r     = 0.01!0.01 !0.1 !0.01  !/day                  ! luo option
+ real(kind=8) :: r     = 1.1574e-7!0.01!0.01 !0.1 !0.01  !/day                  ! luo option
 !real(kind=8) :: dd     = 1.0   !m^3/gC/day            ! Higher Predation on Z
-real(kind=8) :: dd     = 0.02 !0.2 !0.02  !/day                  !luo option
+real(kind=8) :: dd     = 2.3148e-7 !0.2 !0.02  !/day                  !luo option
 real(kind=8) :: k     = 0.05  !/day                  ! Cross-thermocline exchange rate
 real(kind=8) :: s     = 0.04  !/day                  ! P sink loss rate
 real(kind=8) :: N0    = 0.6   !gC/m^3                ! N concentration below mixed layer
@@ -34,11 +34,11 @@ real(kind=8) :: D_0 = 0.0 ! D threshold
 
 
 !luo option
-real(kind=8) :: gammap = 0.01!0.01 !0.01 ! /day                 ! phyto respiration coefficient
-real(kind=8) :: gammaz = 0.015!0.015 !0.015! /day                 ! zoo   respiration coefficient
+real(kind=8) :: gammap = 1.1574e-7!0.01!0.01 !0.01 ! /day                 ! phyto respiration coefficient
+real(kind=8) :: gammaz = 1.7361e-7!0.015!0.015 !0.015! /day                 ! zoo   respiration coefficient
 real(kind=8) :: gammat = 0.07                        ! exponential for temperature forcing
-real(kind=8) :: dr     = 0.015 !0.015! /day                 ! remineralization rate of detritus
-real(kind=8) :: Gmax   = 0.4!0.5!0.4   ! /day                 ! maximum grazing rate by Z
+real(kind=8) :: dr     = 1.7361e-7!0.015 !0.015! /day                 ! remineralization rate of detritus
+real(kind=8) :: Gmax   = 4.6296e-6!0.4!0.5!0.4   ! /day                 ! maximum grazing rate by Z
 real(kind=8) :: sigmaP = 0.5 !0.5  ! (mmolC/m3)^-1        ! preference coefficient of Z on P
 real(kind=8) :: sigmaD = 0.1!0.1!0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
  
@@ -47,7 +47,7 @@ real(kind=8) :: alphaT = 0.004 !                     ! temperature correction co
 real(kind=8) :: alphaI = 14.88e-7 ! mgC/mgCHL/s/W                        ! light parameter relate tothe slope of the light function
 real(kind=8) :: betaI  = 4.25e-8  ! mgC (mgCHL s W)-1                       ! photo inhibition
 real(kind=8) :: umax   = 4.25e-5 ! mmol C(mgCHL s)-1                           ! maximum growth rate
-real(kind=8) :: upmax  = 2.8!2.8 !1.0 !2.8 ! /day                 ! maxium growth rate for P
+real(kind=8) :: upmax  = 3.2407e-5!2.8!2.8 !1.0 !2.8 ! /day                 ! maxium growth rate for P
 ! case  judgment variable
 character(20) :: L_function
 character(20) :: N_function

@@ -4,6 +4,7 @@ use NPZD_input
 implicit none
 integer ::  i,j
 
+
 !open(unit=99,file=NPZD_out,form='unformatted') !ERR=1000
 open(unit=99,file=trim(OUTDIR)//trim(NPZD_out)) !ERR=1000
 
