@@ -1,5 +1,7 @@
 module  NPZD_input
 
+implicit none
+save
 !time and space
 integer :: ITEM    ! how many iteration steps
 integer :: LAYER   ! how many layers in depth

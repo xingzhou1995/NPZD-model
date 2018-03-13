@@ -1,5 +1,6 @@
 module bio_parameter
 implicit none
+save
 ! Using for govern equation
 real(kind=8) :: alpha = 0.25                         ! Z growth efficiency
 real(kind=8) :: beta  = 0.7 !0.7 !(Edward Chen)0.3                         ! Z excretion fraction
