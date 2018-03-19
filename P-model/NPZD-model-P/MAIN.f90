@@ -13,7 +13,7 @@ call NPZD_READ
 do i=1,ITEM
 call NPZD_BIOLOGY(i)
 
-call NPZD_PHYSICS(i)
+!call NPZD_PHYSICS(i)
 
 call NPZD_RESTART(i)
 

@@ -73,7 +73,7 @@ module bio_process
     L_l=(L/L0)*exp(-L/L0)
 
     case ('Luo')
-    L_l= (1-exp((-1)*L*(alphaI/umax))*exp((-1)*(betaI/umax)*L))
+    L_l= (1-exp((-1)*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L)
     !L_l=1
     case default
     print*,"Invalid L_function,program terminated"
@@ -86,7 +86,6 @@ module bio_process
 !   write(*,*) "N_l=",N_l
 !    write(*,*) "L_l=",L_l 
 !   write(*,*) "T_l=",T_l 
-!   write(*,*) "U=",   U
    end subroutine
    
    subroutine P_mortality(P,PM)

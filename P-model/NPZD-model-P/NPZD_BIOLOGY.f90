@@ -338,6 +338,8 @@ call P_respiration(P,PR)
 !Adding respiration (luo option)
 KP=U*P-PR*P-PM*P-GP*Z
 
+open(unit=44,file="grazingp.txt")
+ write(44,*) U,(GP*Z)/P
 !write(*,*),"UPTAKE=",U*P
 
 !write(*,*) "U=",U
