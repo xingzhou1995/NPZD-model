@@ -409,6 +409,8 @@ do j=1,LAYER
    array_D(time+1,j)=D2(j)
 end do
 
+if ( mod(time,100) .eq.0 ) then
+
 write(*,*) "##############mixing##########"
 write(*,*) "time=",time,N2
 write(*,*) "time=",time,P2
@@ -416,6 +418,8 @@ write(*,*) "time=",time,Z2
 write(*,*) "time=",time,D2
 
 !write(*,*) N2
+
+end if
 
 end subroutine
 

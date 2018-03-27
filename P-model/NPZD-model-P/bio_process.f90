@@ -44,6 +44,7 @@ module bio_process
     select case(T_function) 
     case('Luo')
     T_l=exp(-alphaT*abs(T-To))
+    !write(*,*) T_l
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -58,6 +59,7 @@ module bio_process
     end select
 
    !Light Limitation
+    !write(*,*) L
     L_function=trim(L_function)
     select case (L_function)
     case ('Saturating_response1')
@@ -80,12 +82,14 @@ module bio_process
     stop
    
     end select
-   
+        
+
 !Uptaking
     U=upmax*N_l*L_l*T_l
-!   write(*,*) "N_l=",N_l
-!    write(*,*) "L_l=",L_l 
-!   write(*,*) "T_l=",T_l 
+   !open(unit=77,file="uptaking1.dat")
+   !write(*,*) T_l
+   !write(*,*) U
+   !write(77,*) N_l,L_l,T_l,U  
    end subroutine
    
    subroutine P_mortality(P,PM)
@@ -132,7 +136,7 @@ module bio_process
    RR=phi
    case('Luo')
    RR=dr*exp(gammat*T)   
-
+   ! RR=0.0378
    case default
    print*,"Invalid R_function,program terminated"
    stop
@@ -148,7 +152,7 @@ module bio_process
 
    case('Luo') 
    PR=gammap*exp(gammat*T)
-
+  !  PR=0.0252
    case default
    print*,"Invalid PR_function,program terminated"
    stop
@@ -164,7 +168,7 @@ module bio_process
 
    case('Luo') 
    ZR=gammaz*exp(gammat*T)
-   
+   ! ZR=0.0378
    !write(*,*) "ZR=",ZR    
 
    case default

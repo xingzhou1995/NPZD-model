@@ -71,10 +71,22 @@ do j=1,LAYER
     P=array_P(time,j)
     Z=array_Z(time,j)
     D=array_D(time,j)
+
+    
+    !using seconds calculate
+    if (NPZD_SECONDS) then
+     T=array_T(floor(1+((time-1)/86400)*dt),j)
+      L=array_L(floor(1+((time-1)/86400)*dt),j)
+    else  
     T=array_T(floor(1+(time-1)*dt),j)
     L=array_L(floor(1+(time-1)*dt),j)
-  !   T=array_T(floor(1+((time-1)/86400)*dt),j)
-  !    L=array_L(floor(1+((time-1)/86400)*dt),j)
+    end if
+
+
+
+      
+if ( mod(time,100) .eq.0 ) then
+
 Write(*,*) "T=",T,"L=",L
 
 Write(*,*) "#############BIOLOGY PROCESS##################"
@@ -85,6 +97,7 @@ Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"D=",D
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"SUM=",N+P+Z+D
 write(*,*) "#############BIOLOGY PROCESS##################"
 
+end if
 
 ! k1
 N1=N
@@ -294,6 +307,9 @@ call Z_respiration(Z,ZR)
 !Adding respiration
 KN=-U*P+ZR*Z+PR*P+RR*D
 
+!open(unit=66,file="respiration.txt")
+! write(66,*) ZR,PR,RR
+
 case('NPZ')
 call uptaking(N,P,U)
 call grazing(P,Z,D,GP,GD)
@@ -338,8 +354,8 @@ call P_respiration(P,PR)
 !Adding respiration (luo option)
 KP=U*P-PR*P-PM*P-GP*Z
 
-open(unit=44,file="grazingp.txt")
- write(44,*) U,(GP*Z)/P
+!open(unit=44,file="grazingp.txt")
+! write(44,*) U,(GP*Z)/P
 !write(*,*),"UPTAKE=",U*P
 
 !write(*,*) "U=",U

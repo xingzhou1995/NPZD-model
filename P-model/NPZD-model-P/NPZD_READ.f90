@@ -10,7 +10,7 @@ implicit none
 real(kind=8) :: START_TIME,END_TIME,TIME_STEP
 integer :: i,j,error
 real :: ITEM1
-namelist / NPZD_SELECT/ BIO_MODEL
+namelist / NPZD_SELECT/ BIO_MODEL,NPZD_SECONDS
 namelist / NPZD_IO/ INPDIR,OUTDIR
 namelist / NPZD_RESTART/ RESTART_ON,RESTART_INTERVAL
 namelist / NPZD_data/ NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
@@ -40,7 +40,15 @@ stop
 !exit
 end if
 ITEM1=(TEND-TSTART)/dt
-DDAY =(TEND-TSTART)!/86400 ! in second divide 86400
+
+
+if (NPZD_SECONDS) then
+DDAY =(TEND-TSTART)/86400 ! in second divide 86400
+else
+DDAY =(TEND-TSTART)
+end if
+
+
 !write(*,*),"ITEM1=",ITEM1
 ITEM=ceiling(ITEM1)
 !write(*,*),"ITEM=",ITEM
@@ -107,4 +115,10 @@ close(66)
 
 
 write(*,*) "L read successful"
+
+
+if (NPZD_SECONDS) then
+ call day2seconds()
+end if
+
 end subroutine

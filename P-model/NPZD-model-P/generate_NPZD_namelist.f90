@@ -25,9 +25,10 @@ character(20) :: ZR_function = 'Luo'                ! Z respiration
 character(20) :: BIO_MODEL   = 'NPZD'               ! BIOLOGY MODEL PART
 
 logical(kind=4) :: RESTART_ON
+logical(kind=4) :: NPZD_SECONDS
 real(kind=8) :: RESTART_INTERVAL = 10
 
-namelist /NPZD_SELECT/ BIO_MODEL
+namelist /NPZD_SELECT/ BIO_MODEL,NPZD_SECONDS
 namelist /NPZD_IO/ INPDIR,OUTDIR
 namelist /NPZD_RESTART/ RESTART_ON,RESTART_INTERVAL
 
