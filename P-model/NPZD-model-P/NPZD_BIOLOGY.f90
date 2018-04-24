@@ -355,7 +355,7 @@ call P_respiration(P,PR)
 KP=U*P-PR*P-PM*P-GP*Z
 
 !open(unit=44,file="grazingp.txt")
-! write(44,*) U,(GP*Z)/P
+! write(44,*) U,(GP*Z)
 !write(*,*),"UPTAKE=",U*P
 
 !write(*,*) "U=",U
@@ -402,6 +402,9 @@ KZ=GP*Z+GD*Z-ZR*Z-ZM*Z
 !write(*,*),"GD=",GD
 !write(*,*),"ZR=",ZR
 !write(*,*),"ZM=",ZM
+
+open(unit=44,file="grazingp.txt")
+write(44,*) GP*Z+GD*Z
 
 
 case('NPZ')

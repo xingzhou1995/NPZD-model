@@ -53,6 +53,12 @@ module bio_process
     select case(N_function)
     case ('Michaelis-Menten')
     N_l=((Vm*N)/(e+N))
+   !  xing test 2018
+   !  if ((N-No).gt.0.0) then
+   !  N_l=(N-No)/(e+N-No)
+   !   else
+   !  N_l=0.0
+   !   end if
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -75,6 +81,9 @@ module bio_process
     L_l=(L/L0)*exp(-L/L0)
 
     case ('Luo')
+  !xing test
+   
+   ! L_l= (1-exp((-1)*0.006*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L*0.006)
     L_l= (1-exp((-1)*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L)
     !L_l=1
     case default
@@ -86,10 +95,10 @@ module bio_process
 
 !Uptaking
     U=upmax*N_l*L_l*T_l
-   !open(unit=77,file="uptaking1.dat")
+   open(unit=77,file="uptaking1.dat")
    !write(*,*) T_l
    !write(*,*) U
-   !write(77,*) N_l,L_l,T_l,U  
+   write(77,*) N_l,L_l,T_l,U  
    end subroutine
    
    subroutine P_mortality(P,PM)
