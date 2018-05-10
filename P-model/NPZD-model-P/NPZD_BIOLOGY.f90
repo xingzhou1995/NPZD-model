@@ -296,7 +296,7 @@ call grazing(P,Z,D,GP,GD)
 call uptaking(N,P,U)
 call Z_mortality(Z,ZM)
 call remineralization(D,RR)
-call P_respiration(P,PR)
+call P_respiration(P,PR,U)
 call Z_respiration(Z,ZR)
 !Consider Mixing as a parameter
 !KN=-U+beta*GP+gama*ZM*Z+R+k*(N0-N)
@@ -343,7 +343,7 @@ case('NPZD')
 call uptaking(N,P,U)
 call grazing(P,Z,D,GP,GD)
 call P_mortality(P,PM)
-call P_respiration(P,PR)
+call P_respiration(P,PR,U)
 !Consider mixng and sinking as a parameter
 !KP=U-PM*P-GP-(s+k)*P
 

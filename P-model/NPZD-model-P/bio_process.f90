@@ -5,7 +5,7 @@ module bio_process
    use bio_parameter
    implicit none
    real(kind=8) :: P,Z,D,GP,GD !GP is the grazing on P,GD is the graziong on D
-
+   real(kind=8) :: GRATE,RTOTAL !using in case Rowe
    select case(G_function)
    
    case ('origin')
@@ -16,7 +16,11 @@ module bio_process
    !write(*,*) "G=",G
    !write(*,*) "GP=",GP 
    !write(*,*) "GD=",GD 
- 
+   case('Rowe')
+  GRATE=Gmax*exp(gammatz*(T-Toptz))
+  RTOTAL=KZG**M_G
+  GP=GRATE*((sigmaP*P**M_G)/(RTOTAL+sigmaP*P**M_G+sigmaD*D**M_G))
+  GD=GRATE*((sigmaD*D**M_G)/(RTOTAL+sigmaP*P**M_G+sigmaD*D**M_G))
     case('Ivlev')
     GP=Gmax*(1-exp(-lamda*P))
    ! GD=0
@@ -38,13 +42,15 @@ module bio_process
    use bio_parameter
    implicit none
    real(kind=8) :: N,P,U
-   real(kind=8) :: N_l,L_l,T_l
-  
+   !real(kind=8) :: N_l,L_l,T_l
+   real(kind=8) :: IK !using in Rowe case
    !Temperature Limitation   
     select case(T_function) 
     case('Luo')
-    T_l=exp(-alphaT*abs(T-To))
+    T_l=exp(-alphaTP*abs(T-Toptp))
     !write(*,*) T_l
+    case('Rowe')
+    T_l=exp(alphaTP*(T-Toptp))
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -52,13 +58,14 @@ module bio_process
    !Nutrient Limitation
     select case(N_function)
     case ('Michaelis-Menten')
-    N_l=((Vm*N)/(e+N))
+   ! N_l=((Vm*N)/(e+N))
    !  xing test 2018
-   !  if ((N-No).gt.0.0) then
-   !  N_l=(N-No)/(e+N-No)
-   !   else
-   !  N_l=0.0
-   !   end if
+     if ((N-No).gt.0.0) then
+     N_l=(N-No)/(e+N-No)
+     else
+     N_l=0.0
+     end if
+
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -86,6 +93,12 @@ module bio_process
    ! L_l= (1-exp((-1)*0.006*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L*0.006)
     L_l= (1-exp((-1)*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L)
     !L_l=1
+    case('Rowe')
+    IK=(upmax*T_l*N_l)/alphaI
+    if (IK.LE. 69.0) IK=69.0
+    if (IK.GE.108.0) IK=108.0 
+   
+     L_l=(1-exp((-1)*L/IK))*exp((-1)*(betaI*L)/(IK*alphaI))
     case default
     print*,"Invalid L_function,program terminated"
     stop
@@ -153,14 +166,16 @@ module bio_process
 
    end subroutine
 
-  subroutine P_respiration(P,PR)
+  subroutine P_respiration(P,PR,U)
    use bio_parameter
    implicit none
-   real(kind=8) :: P,PR  ! RR is the D remineralization
+   real(kind=8) :: P,PR,U  ! RR is the D remineralization
    select case(PR_function)
 
    case('Luo') 
    PR=gammap*exp(gammat*T)
+   case('Rowe')
+   PR=gammap*T_l+U*0.3  !origin:PR=gammap*T_l*P+U_P*0.3*P
   !  PR=0.0252
    case default
    print*,"Invalid PR_function,program terminated"
@@ -179,6 +194,9 @@ module bio_process
    ZR=gammaz*exp(gammat*T)
    ! ZR=0.0378
    !write(*,*) "ZR=",ZR    
+
+   case('Rowe')
+   ZR=gammaz*exp(gammat*(T-Toptz))
 
    case default
    print*,"Invalid ZR_function,program terminated"
