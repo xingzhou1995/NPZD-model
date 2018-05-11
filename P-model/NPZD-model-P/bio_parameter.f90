@@ -16,8 +16,8 @@ real(kind=8) :: phi   = 0.1   !/day                  ! D remineralization rate
 real(kind=8) :: psi   = 0.08  !/day                  ! D sinking loss rate
 ! Using for calculating Uptaking and Grazing
 !real(kind=8) :: e     = 0.03  !gC/m^3                ! Half-saturation constant for N uptake
-real(kind=8)  :: e     = 0.0071!0.6  !0.6   !0.6 !0.1  !(Edward)   ! mmol P/m            ! luo option
-real(kind=8) :: a     = 0.2   !:/m/day                ! a/b gives maximum P growth rate
+real(kind=8)  :: e     = 0.6  !0.6   !0.6 !0.1  !(Edward)   ! mmol P/m            ! luo option
+real(kind=8) :: a     = 0.2   !/m/day                ! a/b gives maximum P growth rate
 real(kind=8) :: b     = 0.2   !/m                    ! Light attenuaton by water
 real(kind=8) :: c     = 0.4   !m^2/gC/day            ! P self-shading coefficient
 real(kind=8) :: lamda = 0.2 !0.2     !0.6   !(umol N 1-1)-1                  ! Ivlev constant for grazing
@@ -35,24 +35,24 @@ real(kind=8) :: D_0 = 0.0 ! D threshold
 
 !luo option
 real(kind=8) :: gammap = 0.01!0.01 !0.01 ! /day                 ! phyto respiration coefficient
-real(kind=8) :: gammaz = 0.01!0.015!0.015 !0.015! /day                 ! zoo   respiration coefficient
-real(kind=8) :: gammat = 0.07                        ! exponential for temperature forcing
-real(kind=8) :: gammatz= 0.07
+real(kind=8) :: gammaz = 0.015!0.015 !0.015! /day                 ! zoo   respiration coefficient
+real(kind=8) :: gammat = 0.07
+real(kind=8) :: gammatz= 0.0                        ! exponential for temperature forcing
 real(kind=8) :: dr     = 0.015 !0.015! /day                 ! remineralization rate of detritus
 real(kind=8) :: Gmax   = 0.4!0.4!0.5!0.4   ! /day                 ! maximum grazing rate by Z
-real(kind=8) :: KZG    = 0.065 !0.10 !0.090   ! input as gC/m3, 0.240 Hansen 1997, 0.10 1D model !mmol C/m^3half saturation grazing rate for zooplankton
-real(kind=8) :: M_G    = 2.0                               !grazing rate power
-real(kind=8) :: sigmaP = 1.0!0.5 !0.5  ! (mmolC/m3)^-1        ! preference coefficient of Z on P
-real(kind=8) :: sigmaD = 0.05  !0.1!0.1!0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
+real(kind=8) :: KZG    = 1                                    !half saturation grazing rate for zooplankton
+real(kind=8) :: M_G    =  2                               !grazing rate power
+real(kind=8) :: sigmaP = 0.5 !0.5  ! (mmolC/m3)^-1        ! preference coefficient of Z on P
+real(kind=8) :: sigmaD = 0.1!0.1!0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
  
-real(kind=8) :: Toptp  = 10 !18   ! centigrade           ! maximum phytoplankton growth rate optimal water temperature
-real(kind=8) :: Toptz  = 10         !maximum zooplankton growth rate optimal water temperature
-real(kind=8) :: alphaTP = 0.05 !0.004                     ! temperature correction coefficient on phytoplankton growth rate
-real(kind=8) :: alphaI = 3.0e-6!14.88e-7 !7.0!14.88e-7 ! mgC/mgCHL/s/W                        ! light parameter relate tothe slope of the light function
+real(kind=8) :: Toptp     = 18 !18   ! centigrade           ! maximum phytoplankton growth rate optimal water temperature
+real(kind=8) :: Toptz  = 1         !maximum zooplankton growth rate optimal water temperature
+real(kind=8) :: alphaTP = 0.004 !0.004                     ! temperature correction coefficient on growth rate
+real(kind=8) :: alphaI = 7.0!14.88e-7 !7.0!14.88e-7 ! mgC/mgCHL/s/W                        ! light parameter relate tothe slope of the light function
 real(kind=8) :: betaI  = 0.0!4.25e-8  !0.0!4.25e-8  ! mgC (mgCHL s W)-1                       ! photo inhibition
-real(kind=8) :: umax   = 5.4!4.25e-5  !2.4!5.10e-4!4.25e-5 ! mmol C(mgCHL s)-1                           ! maximum growth rate
-real(kind=8) :: upmax  = 2.8 !2.8!2.8 !1.0 !2.8 ! /day                 ! maxium growth rate for phytoplankton 
-real(kind=8) :: No     = 0.00144!1.2 !0.8 !nutrient threshold for uptaking
+real(kind=8) :: umax   = 2.4!4.25e-5  !2.4!5.10e-4!4.25e-5 ! mmol C(mgCHL s)-1                           ! maximum growth rate
+real(kind=8) :: upmax  = 2.8 !2.8!2.8 !1.0 !2.8 ! /day                 ! maxium growth rate for P
+real(kind=8) :: No     = 0.0 !0.8 !nutrient threshold for uptaking
 
 ! case  judgment variable
 character(20) :: L_function

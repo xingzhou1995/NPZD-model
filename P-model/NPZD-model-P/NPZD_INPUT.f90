@@ -19,10 +19,11 @@ real(kind=8),allocatable :: array_P(:,:)
 real(kind=8),allocatable :: array_Z(:,:)
 real(kind=8),allocatable :: array_D(:,:)
 
+
 ! forcing
 real(kind=8),allocatable :: array_T(:,:)
 real(kind=8),allocatable :: array_L(:,:)
-
+real(kind=8),allocatable :: Turbidity !not use it
 
 logical(kind=4) :: RESTART_ON
 logical(kind=4) :: NPZD_SECONDS

@@ -8,6 +8,7 @@ subroutine NPZD_BIOLOGY(i)
 
 use NPZD_input
 use bio_parameter
+use phy_process
 implicit none
 integer :: i,j,time
 real(kind=8) :: N,P,Z,D
@@ -72,11 +73,15 @@ do j=1,LAYER
     Z=array_Z(time,j)
     D=array_D(time,j)
 
-    
+    call light_decay(time,j) 
     !using seconds calculate
     if (NPZD_SECONDS) then
-     T=array_T(floor(1+((time-1)/86400)*dt),j)
-      L=array_L(floor(1+((time-1)/86400)*dt),j)
+     T=array_T(floor(1+(dt*(time-1)/86400)),j)
+      L=array_L(floor(1+(dt*(time-1)/86400)),j)
+   ! write(*,*) "dt=",dt
+   ! write(*,*) "time=",time
+   ! write(*,*) "=",1+(dt*(time-1)/86400)
+   ! write(*,*) "t=", floor(1+((time-1)/86400)*dt)
     else  
     T=array_T(floor(1+(time-1)*dt),j)
     L=array_L(floor(1+(time-1)*dt),j)
@@ -87,7 +92,7 @@ do j=1,LAYER
       
 if ( mod(time,100) .eq.0 ) then
 
-Write(*,*) "T=",T,"L=",L
+write(*,*) "T=",T,"L=",L
 
 Write(*,*) "#############BIOLOGY PROCESS##################"
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N

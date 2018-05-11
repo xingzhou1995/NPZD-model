@@ -1,12 +1,13 @@
 module phy_process
 contains
-subroutine light_decay()
+subroutine light_decay(time,j)
 
 
 use NPZD_INPUT
 use phy_parameter
 implicit none
-integer :: i,j
+integer :: time,j,timeday
+real(kind=8) :: Plight,Dlight
 real(kind=8) :: tmp
 
 ! no decay
@@ -17,15 +18,28 @@ real(kind=8) :: tmp
 ! end do
 !end do
 
-! decay chen
- do j=1,DDAY+1
-  do i=1,LAYER
- array_L(j,i)=array_L(j,1)*transferlight
- tmp=array_L(j,1)*exp(-kext*(i-1)*dh)
- array_L(j,i)=tmp
+Plight=array_P(time,j)
+Dlight=array_D(time,j)
+
+
+kext=att_water+att_phyto*Plight+att_detritus*Dlight!att_turbidity*Turbidity
+
+
+
+! decay 
+if (NPZD_SECONDS) then
+timeday=floor(1+(dt*(time-1)/86400))
+else
+timeday=floor(1+(time-1)*dt)
+end if
+  !write(*,*) kext
+  !write(*,*) array_L(timeday,j),timeday,j
+ !array_L(timeday,j)=array_L(timeday,1)*transferlight
+ !write(*,*) array_L(timeday,j),timeday,j
+ tmp=array_L(timeday,1)*exp(-kext*(j-1)*dh)
+ array_L(timeday,j)=tmp
+!write(*,*) array_L(timeday,j),timeday,j
 !write(*,*) array_L(j,i)
- end do
-end do
 !write(*,*) array_L
 
 end subroutine

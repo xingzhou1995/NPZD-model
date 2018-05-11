@@ -4,6 +4,7 @@ subroutine NPZD_read
 use NPZD_input
 use bio_parameter
 use phy_process
+use phy_parameter
 implicit none
 !character(20) :: NPZD_in,NPZD_T_in,NPZD_L_in,NPZD_out
 !real(kind=8) :: TSTART,TEND,dt
@@ -95,7 +96,7 @@ do i=1,LAYER
   read(55,*,iostat=error) (array_T(j,i),j=1,DDAY+1)
 end do
 !do i=1,Layer
-!write(*,*) (array_T(j,i),j=1,2)
+!write(*,*) (array_T(j,i),j=3,5)
 !end do
 close(55)
 
@@ -108,10 +109,21 @@ open(66,file=trim(INPDIR)//trim(NPZD_L_in))
   !write(*,*) array_L(2,1)
 !  end do
 ! remain calculateing the light intensity decay with depth undone
-call light_decay()
-!write(*,*) array_L(2,1)
+!call light_decay()
+!write(*,*) array_L(2,1),array_L(3,1)
 close(66)
 
+!change light unit from W/m^2 to 
+do j=1,LAYER
+ do i=1,DDAY+1
+array_L(i,j)=array_L(i,1)
+!write(*,*) array_L(2,1),array_L(3,1),array_L(2,2),array_L(3,2)
+end do
+end do
+
+array_L(:,:)=array_L*transferlight
+
+!write(*,*) array_L(2,1),array_L(3,1),array_L(2,2),array_L(3,2)
 
 
 write(*,*) "L read successful"
