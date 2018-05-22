@@ -22,7 +22,7 @@ real(kind=8) :: K1N,K1P,K1Z,K1D
 real(kind=8) :: K2N,K2P,K2Z,K2D
 real(kind=8) :: K3N,K3P,K3Z,K3D
 real(kind=8) :: K4N,K4P,K4Z,K4D
-
+real(kind=8) :: RATIO
 time = i
 !RK4 method
 
@@ -87,7 +87,8 @@ do j=1,LAYER
     L=array_L(floor(1+(time-1)*dt),j)
     end if
 
-
+!T=13
+!L=200
 
       
 if ( mod(time,100) .eq.0 ) then
@@ -197,6 +198,54 @@ Call Detritus(P4,Z4,D4,K4D)
 !write(*,*) "KP=",(dt/6)*(K1P+2*K2P+2*K3P+K4P)
 !write(*,*) "KZ=",(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z)
 !write(*,*) "KD=",(dt/6)*(K1D+2*K2D+2*K3D+K4D)
+
+!xing add 2018 MAY 17 data control
+
+!goto 107
+
+!RATIO=N/((dt/6)*(K1N+2*K2N+2*K3N+K4N))
+!IF (RATIO.LT.1.AND.(K1N+2*K2N+2*K3N+K4N).LT.0.0) THEN
+!K1N=0.0
+!K2N=0.0
+!K3N=0.0
+!K4N=0.0
+!END IF
+
+!RATIO=P/((dt/6)*(K1P+2*K2P+2*K3P+K4P))
+!IF (RATIO.LT.1.AND.(K1P+2*K2P+2*K3P+K4P).LT.0.0) THEN
+!K1P=0.0
+!K2P=0.0
+!K3P=0.0
+!K4P=0.0
+!END IF
+
+!RATIO=Z/((dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z))
+!IF (RATIO.LT.1.AND.(K1Z+2*K2Z+2*K3Z+K4Z).LT.0.0) THEN
+!K1Z=0.0
+!K2Z=0.0
+!K3Z=0.0
+!K4Z=0.0
+!END IF
+
+!RATIO=D/((dt/6)*(K1D+2*K2D+2*K3D+K4D))
+!IF (RATIO.LT.1.AND.(K1D+2*K2D+2*K3D+K4D).LT.0.0) THEN
+!K1D=0.0
+!K2D=0.0
+!K3D=0.0
+!K4D=0.0
+!END IF
+
+
+
+!107 continue 
+
+
+
+
+!open(unit=88,file="KNPZD.dat")
+!write(88,*) (dt/6)*(K1N+2*K2N+2*K3N+K4N),(dt/6)*(K1P+2*K2P+2*K3P+K4P),(dt/6)*(K1Z+2*K2Z+2*K3Z+K4Z),(dt/6)*(K1D+2*K2D+2*K3D+K4D)&
+!,K1P,K2P,K3P,K4P
+
 
 
 N=N+(dt/6)*(K1N+2*K2N+2*K3N+K4N)
@@ -334,13 +383,13 @@ end subroutine
 
 subroutine Phytoplankton(N,P,Z,D,KP)
 
-
+use NPZD_INPUT
 use bio_parameter
 use bio_process
 implicit none
 real(kind=8) :: N,P,Z,D,KP
 real(kind=8) :: U,GP,GD,PM,PR
-
+real(kind=8) :: RATIO,RATIOT,SINKK !using for checking nutrient avability
 BIO_MODEL=trim(BIO_MODEL)
 select case(BIO_MODEL)
 
@@ -357,12 +406,36 @@ call P_respiration(P,PR,U)
 !KP=U*P-PM*P-GP*Z
 
 !Adding respiration (luo option)
+
+!check nutrient availability
+RATIOT=1.0
+SINKK=0.0
+RATIO=1.0
+SINKK=SINKK+U*P
+SINKK=SINKK*dt
+
+IF (SINKK .GT. FVN .AND. SINKK.GT.0.0) THEN
+RATIO=FVN/(SINKK+0.001)
+RATIOT=MIN(RATIOT,RATIO)
+END IF
+
+IF(RATIOT .LT. 1.0) THEN
+U=U*RATIOT
+END IF
+!check sink item avability
+RATIOT=P/((PR*P+PM*P)*dt+0.0001)
+IF (RATIOT.LT.1.0) THEN
+PR=0.0
+PM=0.0
+END IF
+!!!!!!!!!!!!!!!!!!!!
+
 KP=U*P-PR*P-PM*P-GP*Z
 
-!open(unit=44,file="grazingp.txt")
-! write(44,*) U,(GP*Z)
+open(unit=44,file="grazingp.dat")
+ write(44,*) U
 !write(*,*),"UPTAKE=",U*P
-
+!close(44)
 !write(*,*) "U=",U
 !write(*,*) "I=",I
 
@@ -408,8 +481,8 @@ KZ=GP*Z+GD*Z-ZR*Z-ZM*Z
 !write(*,*),"ZR=",ZR
 !write(*,*),"ZM=",ZM
 
-open(unit=44,file="grazingp.txt")
-write(44,*) GP*Z+GD*Z
+!open(unit=44,file="grazingp.txt")
+!write(44,*) GP*Z+GD*Z
 
 
 case('NPZ')

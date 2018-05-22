@@ -44,13 +44,26 @@ module bio_process
    real(kind=8) :: N,P,U
    !real(kind=8) :: N_l,L_l,T_l
    real(kind=8) :: IK !using in Rowe case
-   !Temperature Limitation   
+  ! real(kind=8) :: FVN !FVN=N-N_0
+   real(kind=8) :: N_lmin
+   !Temperature Limitation
+
+    FVN=N-No
+    if (FVN .LT. 0.0) then
+    FVN=0.0
+    end if
+
     select case(T_function) 
     case('Luo')
     T_l=exp(-alphaTP*abs(T-Toptp))
     !write(*,*) T_l
+
     case('Rowe')
     T_l=exp(alphaTP*(T-Toptp))
+
+    case('Cyanobacteria')
+    T_l=1/(1+exp(alphaTP*(Toptp-T)))
+
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -60,12 +73,9 @@ module bio_process
     case ('Michaelis-Menten')
    ! N_l=((Vm*N)/(e+N))
    !  xing test 2018
-     if ((N-No).gt.0.0) then
-     N_l=(N-No)/(e+N-No)
-     else
-     N_l=0.0
-     end if
-
+     N_Lmin=1.0
+     N_l=(FVN)/(e+FVN)
+     N_lmin=min(N_lmin,N_l)
     case default
     print*,"Invalid N_function,program terminated"
     stop
@@ -94,11 +104,11 @@ module bio_process
     L_l= (1-exp((-1)*L*(alphaI/umax)))*exp((-1)*(betaI/umax)*L)
     !L_l=1
     case('Rowe')
-    IK=(upmax*T_l*N_l)/alphaI
+    IK=(upmax*T_l*N_lmin)/(alphaI+1.0e-20)
     if (IK.LE. 69.0) IK=69.0
     if (IK.GE.108.0) IK=108.0 
    
-     L_l=(1-exp((-1)*L/IK))*exp((-1)*(betaI*L)/(IK*alphaI))
+     L_l=(1-exp((-1)*L/IK))!*exp((-1)*(betaI*L)/(IK*alphaI))
     case default
     print*,"Invalid L_function,program terminated"
     stop
@@ -107,12 +117,17 @@ module bio_process
         
 
 !Uptaking
-    U=upmax*N_l*L_l*T_l
+    U=upmax*N_lmin*L_l*T_l
    open(unit=77,file="uptaking1.dat")
-   !write(*,*) T_l
-   !write(*,*) U
-   write(77,*) N_l,L_l,T_l,U  
-   end subroutine
+  ! write(*,*) T_l
+  ! write(*,*) U
+   write(77,*) N_l,L_l,T_l,U,IK  
+  
+   
+
+
+
+    end subroutine
    
    subroutine P_mortality(P,PM)
    use bio_parameter

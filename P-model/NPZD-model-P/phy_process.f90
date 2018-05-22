@@ -64,14 +64,14 @@ real(kind=8) :: N2(LAYER),P2(LAYER),Z2(LAYER),D2(LAYER)
 
 !read data
 do j=1,LAYER
-N1(j)=array_N(time,j)
-!N1(j)=array_N(time+1,j)
-P1(j)=array_P(time,j)
-!P1(j)=array_P(time+1,j)
-Z1(j)=array_Z(time,j)
-!Z1(j)=array_Z(time+1,j)
-D1(j)=array_D(time,j)
-!D1(j)=array_D(time+1,j)
+!N1(j)=array_N(time,j)
+N1(j)=array_N(time+1,j)
+!P1(j)=array_P(time,j)
+P1(j)=array_P(time+1,j)
+!Z1(j)=array_Z(time,j)
+Z1(j)=array_Z(time+1,j)
+!D1(j)=array_D(time,j)
+D1(j)=array_D(time+1,j)
 end do
 
 do j=1,LAYER
@@ -102,6 +102,7 @@ P2(1)=P1(1)-Wp*(dt/dh)*(P1(1)-0)
 Z2(1)=Z1(1)-Wz*(dt/dh)*(Z1(1)-0)
 D2(1)=D1(1)-Wd*(dt/dh)*(D1(1)-0)
 
+if ( mod(time,100) .eq.0 ) then
 Write(*,*) "#############SINKING##################"
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",1,"N=",N2(1)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",1,"P=",P2(1)
@@ -109,7 +110,7 @@ Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",1,"Z=",Z2(1)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",1,"D=",D2(1)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",1,"SUM=",N2(1)+P2(1)+Z2(1)+D2(1)
 write(*,*) "#############SINKING##################"
-
+end if
 
 
 
@@ -127,7 +128,7 @@ P2(j)=P1(j)-Wp*(dt/dh)*(P1(j)-P1(j-1))
 Z2(j)=Z1(j)-Wz*(dt/dh)*(Z1(j)-Z1(j-1))
 D2(j)=D1(j)-Wd*(dt/dh)*(D1(j)-D1(j-1))
 
-
+if ( mod(time,100) .eq.0 ) then
 Write(*,*) "#############SINKING##################"
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"N=",N2(j)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"P=",P2(j)
@@ -135,7 +136,7 @@ Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"Z=",Z2(j)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"D=",D2(j)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",j,"SUM=",N2(j)+P2(j)+Z2(j)+D2(j)
 write(*,*) "#############SINKING##################"
-
+end if
 
 
 end do
@@ -168,7 +169,7 @@ Z2(LAYER)=sum(Z1)-sum(Z2)
 
 D2(LAYER)=sum(D1)-sum(D2)
 
-
+if ( mod(time,100) .eq.0 ) then
 Write(*,*) "#############SINKING##################"
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",LAYER,"N=",N2(LAYER)
 Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",LAYER,"P=",P2(LAYER)
@@ -178,7 +179,7 @@ Write(*,*) "TIME=",TSTART+(time-1)*dt,"LAYER=",LAYER,"SUM=",N2(LAYER)+P2(LAYER)+
 write(*,*) "#############SINKING##################"
 
 write(*,*) "SUM=",sum(N2)+sum(P2)+sum(Z2)+sum(D2)
-
+end if
 !do j=1,LAYER
 
 !if (N3(j).le.0) then

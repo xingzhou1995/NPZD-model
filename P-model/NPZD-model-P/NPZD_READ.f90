@@ -133,4 +133,16 @@ if (NPZD_SECONDS) then
  call day2seconds()
 end if
 
+
+!write what function you choose
+write(*,*) "Temperature function:",T_FUNCTION
+write(*,*) "Light function:",L_FUNCTION
+write(*,*) "Nutrient function:",N_FUNCTION
+write(*,*) "Phytoplankton mortality function:",PM_FUNCTION
+write(*,*) "Zooplankton mortality function:",ZM_FUNCTION
+write(*,*) "Detritus Remineralization function:",R_FUNCTION
+write(*,*) "Grazing function:",G_FUNCTION
+write(*,*) "Phytoplankton respiration function:",PR_FUNCTION
+write(*,*) "Zooplankton respiration function:",ZR_FUNCTION
+
 end subroutine
