@@ -43,7 +43,7 @@ real(kind=8) :: Gmax   = 0.6!0.4!0.5!0.4   ! /day                 ! maximum graz
 real(kind=8) :: KZG    = 5.4!1 mmolC/m^3                                    !half saturation grazing rate for zooplankton
 real(kind=8) :: M_G    =  2.0                               !grazing rate power
 real(kind=8) :: sigmaP = 1.0 !0.5  ! (mmolC/m3)^-1        ! preference coefficient of Z on P
-real(kind=8) :: sigmaD = 0.005!0.1!0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
+real(kind=8) :: sigmaD = 0.05!0.1!0.1  ! (mmolC/m3)^-1        ! preference coefficient of Z on D
  
 real(kind=8) :: Toptp     = 10!18 !18   ! centigrade           ! maximum phytoplankton growth rate optimal water temperature
 real(kind=8) :: Toptz  = 10         !maximum zooplankton growth rate optimal water temperature
@@ -74,4 +74,5 @@ real(kind=8) :: L   !Light intension
 real(kind=8) :: N_l
 real(kind=8) :: T_l
 real(kind=8) :: L_l
+real(kind=8) :: FVN !FVN=N-No
 end module bio_parameter
