@@ -11,12 +11,15 @@ module bio_process
    case ('origin')
    GP=((lamda*P**2)/(mu**2+P**2))
    case ('Luo')
-   GP=Gmax*((sigmaP*P)/(1+sigmaP*P+sigmaD*D))
-   GD=Gmax*((sigmaD*D)/(1+sigmaP*P+sigmaD*D))
+   GRATE=Gmax*exp(gammatz*(T-Toptz))
+   GP=GRATE*((sigmaP*P)/(1+sigmaP*P+sigmaD*D))
+   GD=GRATE*((sigmaD*D)/(1+sigmaP*P+sigmaD*D))
    !write(*,*) "G=",G
    !write(*,*) "GP=",GP 
    !write(*,*) "GD=",GD 
-   case('Rowe')
+   !open(unit=88,file="grazingp.txt")
+   !write(88,*) GP,GD,P,D,GMAX,sigmaP,sigmaD
+  case('Rowe')
   GRATE=Gmax*exp(gammatz*(T-Toptz))
   RTOTAL=KZG**M_G
   GP=GRATE*((sigmaP*P**M_G)/(RTOTAL+sigmaP*P**M_G+sigmaD*D**M_G))
@@ -25,13 +28,18 @@ module bio_process
     GP=Gmax*(1-exp(-lamda*P))
    ! GD=0
     GD=Gmax*(1-exp(-lamda*D))
-
- 
+    
+  
     case default
     print*,"Invalid G_function,program terminated"
     stop
     end select
  !  write(*,*) "GP=",GP   
+
+   open(unit=88,file="grazingp.dat")
+   write(88,*) GP,GD
+
+
 
    end subroutine
 
@@ -59,10 +67,17 @@ module bio_process
     !write(*,*) T_l
 
     case('Rowe')
+    !if (T.LE.12) then
+    !T_l=0.0
+    !else
     T_l=exp(alphaTP*(T-Toptp))
-
+    !end if
+  
     case('Cyanobacteria')
     T_l=1/(1+exp(alphaTP*(Toptp-T)))
+
+    case('planktothrix')
+     T_l=exp(-2.3*((Toptp-T)/(Toptp-Tmin))**2)    
 
     case default
     print*,"Invalid N_function,program terminated"
@@ -75,6 +90,7 @@ module bio_process
    !  xing test 2018
      N_Lmin=1.0
      N_l=(FVN)/(e+FVN)
+    N_L=1.0
      N_lmin=min(N_lmin,N_l)
     case default
     print*,"Invalid N_function,program terminated"
@@ -105,10 +121,10 @@ module bio_process
     !L_l=1
     case('Rowe')
     IK=(upmax*T_l*N_lmin)/(alphaI+1.0e-20)
-    if (IK.LE. 69.0) IK=69.0
-    if (IK.GE.108.0) IK=108.0 
+   ! if (IK.LE. 69.0) IK=69.0
+   ! if (IK.GE.108.0) IK=108.0 
    
-     L_l=(1-exp((-1)*L/IK))!*exp((-1)*(betaI*L)/(IK*alphaI))
+     L_l=(1-exp((-1)*L/IK))*exp((-1)*(betaI*L)/(IK*alphaI))
     case default
     print*,"Invalid L_function,program terminated"
     stop

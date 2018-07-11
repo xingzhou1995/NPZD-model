@@ -360,6 +360,7 @@ call Z_respiration(Z,ZR)
 
 !Adding respiration
 KN=-U*P+ZR*Z+PR*P+RR*D
+!KN=-U*P+ZR*Z+PR*P+RR*D+alpha*GP*Z  !xing test  adding cycle
 
 !open(unit=66,file="respiration.txt")
 ! write(66,*) ZR,PR,RR
@@ -432,8 +433,8 @@ END IF
 
 KP=U*P-PR*P-PM*P-GP*Z
 
-open(unit=44,file="grazingp.dat")
- write(44,*) U
+!open(unit=44,file="grazingp.dat")
+! write(44,*) U
 !write(*,*),"UPTAKE=",U*P
 !close(44)
 !write(*,*) "U=",U
@@ -476,13 +477,15 @@ call Z_respiration(Z,ZR)
 
 !luo
 KZ=GP*Z+GD*Z-ZR*Z-ZM*Z
+!KZ=beta*GP*Z+GD*Z-ZR*Z-ZM*Z  !adding cycle  
 !write(*,*),"GP=",GP
 !write(*,*),"GD=",GD
 !write(*,*),"ZR=",ZR
 !write(*,*),"ZM=",ZM
 
-!open(unit=44,file="grazingp.txt")
-!write(44,*) GP*Z+GD*Z
+
+!open(unit=88,file="grazingp.txt")
+!write(88,*) GP,GD,Z,GP*Z+GD*Z
 
 
 case('NPZ')
@@ -525,6 +528,7 @@ call remineralization(D,RR)
 
 !Luo option
 KD=PM*P+ZM*Z-GD*Z-RR*D
+!KD=PM*P+ZM*Z-GD*Z-RR*D+(1-alpha-beta)*GP*Z !xing adding cycle
 
 case('NPZ')
 

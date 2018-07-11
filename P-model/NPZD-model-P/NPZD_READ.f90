@@ -29,12 +29,22 @@ read(33,nml=NPZD_bioprocess)
 WRITE(*,*) BIO_MODEL
 
 ! allocate Item
+
+if (NPZD_SECONDS) then
+END_TIME=END_TIME*86400
+TIME_STEP=TIME_STEP*86400
+end if
+
+
+
 TSTART=START_TIME
 TEND=END_TIME
 dt=TIME_STEP
-!write(*,*) TSTART
-!write(*,*) TEND
-!write(*,*) dt
+
+
+write(*,*) TSTART
+write(*,*) TEND
+write(*,*) dt
 if (TEND .lt. TSTART) then
 write(*,*) "error  NPZD_time,program terminated"
 stop
